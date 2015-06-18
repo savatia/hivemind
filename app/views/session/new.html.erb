@@ -1,0 +1,12 @@
+<% provide :title, 'Login' %>
+<%= form_for(:session, url: login_path) do |f| %>
+	<%= f.label :username, class:'form-label' %>
+	<%= f.text_field :username, class:'text_area form-input' %>
+	<%= f.label :password, class:'form-label' %>
+	<%= f.password_field :password, class:'password-field form-input' %>
+	<%= f.label :remember_me, class: "checkbox remember-checkbox" do %>
+		<%= f.check_box :remember_me %>
+		<span>Remember me on this computer</span>
+	<% end %>
+	<%= f.submit "Login", class:"btn primary-btn" %>
+<% end %>

@@ -7,5 +7,26 @@
 	<li class="topbar-list">
 	<%= link_to "Help", static_pages_help_path, class: "topdar-links no-formatt" %>
 	</li>
+	<% if !current_user.nil? %>
+		<li class="topbar-list">
+		  <%= link_to "Account", "#", class: "topdar-links no-formatt" %>
+			<ul class="account-links">
+			  <li class="account-link">
+				<%= link_to "Profile", user_path(current_user), class:"no-formatt"  %>
+			  </li>
+			  <li class="account-link">
+				<%= link_to "Logout", logout_path, class:"no-formatt" , method: :delete %>
+			  </li>
+			  <li class="account-link">
+				<%= link_to "Settings", edit_user_path(current_user), class:"no-formatt"  %>
+			  </li>
+			</ul>
+		</li>
+	<% else %>
+		<li class="topbar-list">
+		  <%= link_to "Login", login_path, class: "topdar-links no-formatt" %>
+		</li>
+	<% end %>
   </ul>
+
 </div>
