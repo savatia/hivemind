@@ -1,0 +1,6 @@
+<% provide :title, 'New Field' %>
+<%= form_for @field do |f| %>
+	<%= f.label :name, class:'form-label' %>
+	<%= f.text_field :name, class:'text_area form-input' %>
+	<%= f.submit "Save", class:"btn primary-btn" %>
+<% end %>

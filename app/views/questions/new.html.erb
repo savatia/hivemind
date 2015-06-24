@@ -1,0 +1,18 @@
+<% provide :title, 'New Question' %>
+<%= form_for @quetion do  |f|%>
+	<%= f.label :title, class:"form-label question-form" %>
+	<%= f.text_field :title, class:"text_area form-input" %>
+
+	<%= f.label :content, class:"form-label" %>
+	<%= f.text_area :content, class:"text_area form-input" %>
+
+	<%= f.label :field, class:"form-label" %>
+	<select name="field" class="form-input">
+	  <% Field.all.each  do |field| %>
+		  <option value="<%= field.id %>" class="form-input">
+		  <%= field.name %>
+		  </option>
+	  <% end %>
+	</select>
+	<%= f.submit "Post Question!", class:"btn primary-btn" %>
+<% end %>

@@ -1,0 +1,149 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica, Arial, Sans-Serif;
+  font-size: 16px;
+  overflow: hidden;
+}
+
+body{
+  background-color: #F7F7F7;
+  margin: 0 auto;
+  width: 80%;
+
+}
+
+
+/* for all ul in topbar */
+#topbar{
+  margin: 0 auto;
+  background-color: cornflowerblue;
+  font-weight: 900;
+  z-index: 9998;
+
+  a{
+    display: block;
+    height: 20px;
+    width: 100px;
+    padding: 10px;
+    text-decoration: none;
+    color: azure;
+  }
+
+
+  #logo{
+    font-family: Courier;
+    float: left;
+    width: 35%;
+    text-align: center;
+    padding: 20px;
+    font-weight: 900;
+    font-size: 40px;
+    color: #EFEFEF;
+  }
+
+
+  .topbar-list{
+    list-style: none;
+    float: right;
+    border-bottom-color: #2E2F30 ;
+
+    .topbar-listitem{
+      float: left;
+      padding: 10px;
+      width: 26%;
+      &:hover .account-list{
+        display: block;
+      }
+
+      .account-list{
+        display:none;
+        position: absolute;
+        background-color: #EFEFEF;
+        font-weight: 500;
+        z-index: 9999;
+
+        .account-listitem:hover{
+            background-color: #666666;
+            a{
+              color: coral;
+            }
+        }
+
+        a{
+          color: #2E2F30;
+          width: auto;
+        }
+      }
+    }
+  }
+
+
+}
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  color: #2E2F30;
+}
+
+.container{
+  background-color: #ffffff;
+  height: 720px;
+  margin: 0 auto;
+  align-content: center;
+
+  div, h1, p, form{
+    padding: 20px;
+  }
+
+  .page-title{
+    font-size: 48px;
+    color: #666666;
+  }
+
+  form{
+
+    input{
+      display: block;
+      margin: 5px;
+    }
+  }
+
+}
+
+.topbar-login{
+  &:hover{
+    background-color: #EFEFEF;
+  }
+  input{
+    display: block;
+    margin: 5px;
+  }
+}
+
+.question-container{
+  height: 50%;
+  margin: 20px;
+  .votes-container{
+    width: 20%;
+    height: inherit;
+    display: inline-block;
+  }
+  .question-wrapper{
+    height: inherit;
+    display: inline-block;
+    .question-title{
+      font-size: 250%;
+      font-weight: 900;
+    }
+
+    .question-content{
+      background-color: #DADADA;
+    }
+  }
+}
+
+.no-formatt{
+  text-decoration: none;
+}

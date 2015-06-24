@@ -1,0 +1,14 @@
+<% provide :title, @question.title %>
+<div class="question-container">
+  <div class="votes-container"><%= @question.votes %></div>
+  <div class="question-wrapper">
+	<% if @question.title.end_with?("?")
+		 @title = @question.title
+	   else
+		 @title = @question.title + "?"
+	   end
+	%>
+	<h1 class="question-title"><%= @title %></h1>
+	<p class="question-content"> <%= @question.content %></p>
+  </div>
+</div>

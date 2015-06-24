@@ -14,7 +14,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(id: params[:id])
+    @user = User.find_by(name:params[:id])
+  end
+
+  def questions
+    @user = User.find_by(name:params[:user_id])
+    @questions = Question.where(:user_id => @user.id)
   end
 
   private

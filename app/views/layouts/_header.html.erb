@@ -1,32 +1,44 @@
+<div id="bar">
 <div id="topbar" class="topbar">
 <%= link_to "HiveMind", root_url, class: "logo no-formatt", id: "logo" %>
-  <ul>
-	<li class="topbar-list">
-	<%= link_to "About", static_pages_about_path, class: "topdar-links no-formatt" %>
+  <ul class="topbar-list">
+	<li class="topbar-listitem">
+	<%= link_to "About", about_path, class: "topbar-link no-formatt" %>
 	</li>
-	<li class="topbar-list">
-	<%= link_to "Help", static_pages_help_path, class: "topdar-links no-formatt" %>
+	<li class="topbar-listitem">
+	<%= link_to "Help", help_path, class: "topbar-link no-formatt" %>
 	</li>
 	<% if !current_user.nil? %>
-		<li class="topbar-list">
-		  <%= link_to "Account", "#", class: "topdar-links no-formatt" %>
-			<ul class="account-links">
-			  <li class="account-link">
-				<%= link_to "Profile", user_path(current_user), class:"no-formatt"  %>
+		<li class="topbar-listitem account" >
+		  <% @account = current_user.name
+			  if current_user.admin?
+				@account += "(admin)"
+			  end
+		  %>
+		  <%= link_to @account, "#", class: "topbar-link no-formatt" %>
+			<ul class="account-list" id="account-list">
+			  <li class="account-listitem">
+				<%= link_to "Profile", user_path(id:current_user.name), class:"account-link no-formatt"  %>
 			  </li>
-			  <li class="account-link">
-				<%= link_to "Logout", logout_path, class:"no-formatt" , method: :delete %>
+			  <li class="account-listitem">
+				<%= link_to "Logout", logout_path, class:"no-formatt account-link" , method: :delete %>
 			  </li>
-			  <li class="account-link">
-				<%= link_to "Settings", edit_user_path(current_user), class:"no-formatt"  %>
+			  <li class="account-listitem">
+				<%= link_to "Settings", edit_user_path(current_user), class:"no-formatt account-link"  %>
 			  </li>
 			</ul>
 		</li>
 	<% else %>
-		<li class="topbar-list">
-		  <%= link_to "Login", login_path, class: "topdar-links no-formatt" %>
+		<li class="topbar-listitem">
+		  <%= link_to "Login", login_path, class: "topbar-link no-formatt" %>
+		  <ul class="account-list" id="account-list">
+			<li class="account-listitem">
+			  <%= render 'session/login' %>
+			</li>
+		  </ul>
 		</li>
 	<% end %>
   </ul>
 
+</div>
 </div>

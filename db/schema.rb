@@ -11,14 +11,83 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610223618) do
+ActiveRecord::Schema.define(version: 20150622183816) do
+
+  create_table "answers", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "question_id"
+    t.integer  "votes",       default: 0
+    t.boolean  "best"
+    t.integer  "user_id"
+    t.datetime "date"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id"
+  add_index "answers", ["user_id"], name: "index_answers_on_user_id"
+
+  create_table "fields", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.integer  "topic_id"
+    t.datetime "date"
+    t.integer  "user_id"
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "posts", ["topic_id"], name: "index_posts_on_topic_id"
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
+
+  create_table "questions", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "field_id"
+    t.string   "tags"
+    t.integer  "votes"
+    t.datetime "date"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "url"
+  end
+
+  add_index "questions", ["field_id", "created_at"], name: "index_questions_on_field_id_and_created_at"
+  add_index "questions", ["field_id"], name: "index_questions_on_field_id"
+  add_index "questions", ["user_id", "created_at"], name: "index_questions_on_user_id_and_created_at"
+  add_index "questions", ["user_id"], name: "index_questions_on_user_id"
+
+  create_table "replies", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.string   "content"
+    t.datetime "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "replies", ["post_id"], name: "index_replies_on_post_id"
+  add_index "replies", ["user_id"], name: "index_replies_on_user_id"
+
+  create_table "topics", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "admin",           default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

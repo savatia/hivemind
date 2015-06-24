@@ -1,0 +1,4 @@
+<% provide :title, @field.name.camelcase + " questions" %>
+<% @questions.each do |question| %>
+	<h1><%= link_to question.title, field_question_path(field_id: @field.name, id: question.url) %></h1>
+<%end  %>
