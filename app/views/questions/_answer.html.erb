@@ -1,0 +1,17 @@
+<a href="#" id="answer_button" class="no-formatt answer-btn btn btn-primary">
+  Answer!
+</a>
+<div class="answer-wrapper hidden" id="answer_wrapper">
+  <%= form_for @answer do |f| %>
+	  <%= f.hidden_field :question_id, value: @question.id, id:"question_id" %>
+	  <%= f.text_area :content, class:'form-input answer-box', id:'answer_box' %>
+	  <%= link_to "Submit", "#", id:"answer_submit",  class:"btn" %>
+  <% end %>
+</div>
+<div class="answers-wrapper" id="answers_wrapper">
+  <% @answers.each do |answer| %>
+  	<div class="answer">
+	  <%= answer.content %>
+	</div>
+  <% end %>
+</div>

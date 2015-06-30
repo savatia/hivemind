@@ -4,7 +4,7 @@ class CreateAnswers < ActiveRecord::Migration
       t.text :content
       t.references :question, index: true
       t.integer :votes, default:0
-      t.boolean :best
+      t.boolean :best, default: false
       t.references :user, index: true
       t.datetime :date
 

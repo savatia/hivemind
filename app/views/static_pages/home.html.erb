@@ -1,9 +1,9 @@
 <% provide(:title, 'Home') %>
 <h1 class="page-title" id="home-message">Welcome to Hivemind!</h1>
-<p class="message">Get on this: <%= link_to "sign up!", signup_path%></p>
+<p class="message">Get on this: <%= link_to "sign up!", signup_path, class:"no-formatt btn"%></p>
 
-<%= link_to "Post a Question", new_question_path, class:"no-formatt" %>
+<%= link_to "Post a Question", new_question_path, class:"no-formatt btn" %>
 <h1 class="page-title">View Posted Questions!</h1>
 <% Field.all.each do |field| %>
-<%= link_to field.name.camelcase, field_questions_path(field_id: field.name) , class:"no-formatt" %>
+<%= link_to field.name.camelcase, field_questions_path(field_id: field.name) , class:"no-formatt btn" %>
 <% end %>

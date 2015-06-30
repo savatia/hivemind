@@ -5,7 +5,7 @@ class CreateQuestions < ActiveRecord::Migration
       t.text :content
       t.references :field, index: true
       t.string :tags
-      t.integer :votes
+      t.integer :votes, default:0
       t.datetime :date
       t.references :user, index: true
 

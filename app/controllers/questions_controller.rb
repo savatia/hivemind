@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  before_action :logged_in, except: :show
   def new
     @quetion = Question.new
     @fields = Field.all
@@ -17,6 +18,8 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find_by(url:params[:id])
+    @answer = Answer.new
+    @answers = Answer.where(:question_id => @question.id)
   end
 
   def index

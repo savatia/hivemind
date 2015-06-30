@@ -26,5 +26,12 @@ module SessionHelper
     @current_user.admin?
   end
 
+  def logged_in
+    if current_user.nil?
+      flash[:danger] = "You are not looged in!"
+      redirect_to root_url
+    end
+  end
+
 
 end

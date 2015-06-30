@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get 'help' => 'static_pages#help'
 
+  get 'forums' => 'topics#index'
+
   resources :users do
     get 'questions' => 'users#questions'
   end
@@ -16,7 +18,12 @@ Rails.application.routes.draw do
   post 'login' => 'session#create'
   delete 'logout'=> 'session#destroy'
 
+  resources :answers, only:[:new, :edit, :create, :destroy]
+
   resources :questions, only:[:new, :destroy, :create]
+
+  resources :topics do
+  end
 
   resources :fields, path: '' , only:[:show]  do
     resources :questions, only:[:show, :edit]

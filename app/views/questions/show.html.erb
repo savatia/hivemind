@@ -11,4 +11,10 @@
 	<h1 class="question-title"><%= @title %></h1>
 	<p class="question-content"> <%= @question.content %></p>
   </div>
+  <br/>
+</div>
+<div id="answer-container" class="answer-container">
+  <div id="loading" class="loading hidden">
+  </div>
+  <%=  render 'questions/answer'  if !current_user.nil? %>
 </div>

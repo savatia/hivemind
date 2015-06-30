@@ -17,11 +17,11 @@ ActiveRecord::Schema.define(version: 20150622183816) do
     t.text     "content"
     t.integer  "question_id"
     t.integer  "votes",       default: 0
-    t.boolean  "best"
+    t.boolean  "best",        default: false
     t.integer  "user_id"
     t.datetime "date"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   add_index "answers", ["question_id"], name: "index_answers_on_question_id"
@@ -50,11 +50,11 @@ ActiveRecord::Schema.define(version: 20150622183816) do
     t.text     "content"
     t.integer  "field_id"
     t.string   "tags"
-    t.integer  "votes"
+    t.integer  "votes",      default: 0
     t.datetime "date"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.string   "url"
   end
 

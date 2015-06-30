@@ -21,7 +21,6 @@ class SessionController < ApplicationController
       flash[:danger] = "No user found"
       redirect_to login_path
     end
-
   end
 
   def destroy

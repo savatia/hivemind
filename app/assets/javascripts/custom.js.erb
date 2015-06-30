@@ -1,0 +1,45 @@
+$(document).ready(function(){
+
+	$('#answer_button').click(function(){
+		$("#answer_wrapper").removeClass("hidden").addClass("show");
+		$("#answer_button").hide();
+		$('#answer_box').focus();
+	});
+
+	$(document).ajaxStart(function(){
+		$('#loading').fadeIn().addClass("show").removeClass("hidden");
+	});
+
+
+	/*
+
+	$('#loading').bind('ajaxStart',  function (){
+		$( this).fadeIn(function (){
+			this.removeClass("hidden").addClass("show");
+		});
+	}).bind('ajaxStop',  function (){
+		$( this ).fadeOut(function(){
+			this.remove("show").addClass("hidden");
+		});
+	});
+
+*/
+	//    params.require(:answer).permit(:content, :question_id)
+
+
+
+		$('#answer_submit').click(function () {
+			$('#loading').fadeIn().addClass("show").removeClass("hidden");
+			$.ajax({
+				type: "POST",
+				url: "/answers",
+				data: {answer: {content: $('#answer_box').val(), question_id: $('#question_id').val()}},
+				success: function (result) {
+					$('#loading').fadeOut().addClass("hidden").removeClass("show");
+					$("#answer_wrapper").removeClass("show").addClass("hidden");
+				},
+				error: function (xhr, status, error) {
+				}
+			});
+		});
+});
