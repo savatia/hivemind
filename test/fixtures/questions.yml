@@ -3,17 +3,17 @@
 one:
   title: MyString
   content: MyString
-  field: 
+  field_id:
   tags: MyString
   votes: 1
   date: 2015-06-21
-  user: 
+  user_id:
 
 two:
   title: MyString
   content: MyString
-  field: 
+  field_id:
   tags: MyString
   votes: 1
   date: 2015-06-21
-  user: 
+  user_id:

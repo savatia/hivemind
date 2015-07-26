@@ -1,1 +1,38 @@
 <% provide :title, 'List of Forums' %>
+<div class="topics-container">
+
+  <table class="topics-table">
+	<thead>
+	<tr>
+	  <th class="topic-general" colspan="2">
+		General Topics
+	  </th>
+	</tr>
+	</thead>
+	<tbody>
+	<% @topics.each do |topic| %>
+		<% if topic.general? %>
+			<tr><td><%= link_to topic.name, topic_path(topic.url), class: "no-formatt" %></td><td> Posts:<%= Post.where(topic: topic).size %></td></tr>
+		<% end %>
+	<% end %>
+	</tbody>
+  </table>
+
+  <table class="topics-table">
+	<thead>
+	<tr>
+	  <th class="topic-general" colspan="2">
+		Miscellaneous
+	  </th>
+	</tr>
+	</thead>
+	<tbody>
+	<% @topics.each do |topic| %>
+		<% if !topic.general? %>
+			<tr><td><%= link_to topic.name, topic_path(topic.url), class: "no-formatt" %></td><td> Posts:<%= Post.where(topic: topic).size %></td></tr>
+		<% end %>
+	<% end %>
+	</tbody>
+  </table>
+
+</div>

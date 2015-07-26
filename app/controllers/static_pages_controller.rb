@@ -7,4 +7,7 @@ class StaticPagesController < ApplicationController
 
   def help
   end
+
+  def admin_functions
+  end
 end

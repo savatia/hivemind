@@ -1,0 +1,20 @@
+<%  vector = AnswerVote.find_by(user_id: current_user.id, answer_id: answer.id) if !current_user.nil? %>
+<% if !vector.nil? %>
+	<% if vector.vector == 1 %>
+		<div class="answer-upvote"><%= link_to '', answer_vote_path+'?answer_id='+answer.id.to_s+'&vector=1',  class: 'arrow-up-active' %></div>
+	<% else %>
+		<div class="answer-upvote"><%= link_to '', answer_vote_path+'?answer_id='+answer.id.to_s+'&vector=1',  class: 'arrow-up' %></div>
+	<% end %>
+<% else %>
+	<div class="answer-upvote"><%= link_to '', answer_vote_path+'?answer_id='+answer.id.to_s+'&vector=1',  class: 'arrow-up' %></div>
+<% end %>
+<div class="answer-votes"><%= answer.votes %></div>
+<% if !vector.nil? %>
+	<% if vector.vector == -1 %>
+		<div class="answer-downvote"><%= link_to '', answer_vote_path+'?answer_id='+answer.id.to_s+'&vector=-1', class:'arrow-down-active' %></div>
+	<% else %>
+		<div class="answer-downvote"><%= link_to '', answer_vote_path+'?answer_id='+answer.id.to_s+'&vector=-1', class:'arrow-down' %></div>
+	<% end %>
+<% else %>
+	<div class="answer-downvote"><%= link_to '', answer_vote_path+'?answer_id='+answer.id.to_s+'&vector=-1', class:'arrow-down' %></div>
+<% end %>

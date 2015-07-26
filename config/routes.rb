@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root 'static_pages#home'
 
   get 'about' => 'static_pages#about'
@@ -11,18 +12,33 @@ Rails.application.routes.draw do
     get 'questions' => 'users#questions'
   end
 
+  resources :moderators, only:[:create, :destroy, :new]
+
+  get 'admin_functions' => 'static_pages#admin_functions'
+
+  resources :closings, only:[:create, :new]
+
+  resources :replies, only:[:create, :delete]
+
+  resources :posts, only:[:destroy, :create]
+
   resources :fields, only:[ :create, :new, :destroy ,:index]
 
+  #resources :questions_votes, only:[:create, :destroy, :edit, :vote]
+  get 'question_vote' => 'questions_votes#vote'
+  get 'answer_vote' => 'answer_votes#vote'
+  get 'best_answer' =>'answers#best'
   get 'signup' => 'users#new'
   get 'login' => 'session#new'
   post 'login' => 'session#create'
   delete 'logout'=> 'session#destroy'
 
-  resources :answers, only:[:new, :edit, :create, :destroy]
+  resources :answers, only:[:create]
 
-  resources :questions, only:[:new, :destroy, :create]
+  resources :questions, only:[:new, :destroy, :create, :index]
 
   resources :topics do
+    resources :posts
   end
 
   resources :fields, path: '' , only:[:show]  do

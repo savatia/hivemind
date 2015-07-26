@@ -1,6 +1,7 @@
 <% provide :title, @question.title %>
+<%= link_to "+close...",new_closing_path, class: "float-right not-important" %>
 <div class="question-container">
-  <div class="votes-container"><%= @question.votes %></div>
+  <div class="votes-container"><%= render partial:'votes', locals:{question: @question}%></div>
   <div class="question-wrapper">
 	<% if @question.title.end_with?("?")
 		 @title = @question.title
@@ -10,6 +11,13 @@
 	%>
 	<h1 class="question-title"><%= @title %></h1>
 	<p class="question-content"> <%= @question.content %></p>
+	<div class="not-important" style="margin-top: 10px;">
+	  <div class="float-left"><%= @question.created_at %></div>
+	  <% if current_user == User.find(@question.user_id) %>
+		  <div class="float-right">&nbsp;<%= link_to "delete", @question, method: :delete, data: { confirm: "You sure?" }, class:"formartt-link" %></div>
+	  <% end %>
+	  <div class="small-user float-right">asked by:&nbsp;<%= link_to User.find(@question.user_id).name, user_path(User.find(@question.user_id).name), class:"formartt-link" %></div>
+	</div>
   </div>
   <br/>
 </div>
@@ -18,3 +26,4 @@
   </div>
   <%=  render 'questions/answer'  if !current_user.nil? %>
 </div>
+

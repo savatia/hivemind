@@ -1,0 +1,23 @@
+<div class="side-nav">
+  <div class="side-recent-questions">
+	<div class="side-nav-title">Search:</div>
+	<div class="side-nav-content-wrapper">
+	  <input type="text" class="input-text input" placeholder="search.."/>
+	</div>
+  </div>
+  <div class="side-recent-questions">
+	<div class="side-nav-title"><%= link_to "Recent Questions", questions_path, class:"side-bar no-formatt grey-link bold" %></div>
+	<div class="side-nav-content-wrapper">
+	  <% recent = Question.all[0..4] %>
+	  <% if !recent.nil? %>
+	  <% recent.each do |question| %>
+		  <div class="side-nav-content"><span class="not-important side-vote"> <%= question.votes %></span><span class="side-question"><%= link_to question.title, field_question_path(id: question.url, field_id: Field.find(question.field_id).name), class:"no-formatt blue-link" %></span></div>
+		  <% end %>
+	  <% end %>
+	</div>
+  </div>
+  <br/>
+  <p>
+
+  </p>
+</div>

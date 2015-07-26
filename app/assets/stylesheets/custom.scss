@@ -1,6 +1,19 @@
 //$accent-color: cornflowerblue ;
-$accent-color: #ffa841;
-$page-width: 60%;
+
+/* orange scheme */
+//$accent-color: #ffa841;
+//$accesnt-color-light: #ffda60;
+//$accent-color-border:  #ffa841;
+
+/* green scheme */
+$accent-color: #83e897;
+$accent-color-light:#bbe8c8;
+$accent-color-border: #0ea14c;
+$active:  cornflowerblue;
+//$accent2-color: ;
+
+
+$page-width: 75%;
 $question-grey: #F1F1F1;
 @font-face {
   font-family: "ArchivoNarrow - Regular";
@@ -18,17 +31,17 @@ $question-grey: #F1F1F1;
 }
 
 *{
+  box-sizing: border-box;
 
   margin: 0;
   padding: 0;
   font-family: Helvetica, Arial, Sans-Serif;
-  font-size: 16px;
 }
 
 body{
   background-color: #F7F7F7;
   margin: 0 auto;
-
+  background: image_url("diamond_upholstery") repeat;
 }
 
 #bar{
@@ -46,26 +59,30 @@ body{
   z-index: 9998;
   width: $page-width ;
   overflow: hidden;
+  font-size: 12px;
 
   a{
     display: block;
-    height: 20px;
-    width: 100px;
+    height: auto;
     padding: 10px;
     text-decoration: none;
-    color: azure;
+    //color: azure;
+    color:  #ffffff;
   }
 
 
   #logo{
     font-family: Courier;
     float: left;
-    width: 35%;
     text-align: center;
-    padding: 20px;
     font-weight: 900;
     font-size: 40px;
-    color: #EFEFEF;
+    color: rgba(0,0,0,0);
+    height: auto;
+    background-image: image_url("logo");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
   }
 
 
@@ -77,7 +94,12 @@ body{
     .topbar-listitem{
       float: left;
       padding: 10px;
-      width: 26%;
+      width: auto;
+
+      &:hover{
+        border-bottom: 4px white solid;
+      }
+
       &:hover .account-list{
         visibility: visible;
         opacity: 1;
@@ -93,10 +115,11 @@ body{
         z-index: 9999;
         transition: opacity 0.5s;
         box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
-        width: 10%;
+        width: auto;
+        min-width: 10%;
         list-style: none;
         .account-listitem{
-          transition: background-color 0.5s, color 5s;
+          transition: background-color 0.1s, color 0.1s;
           &:hover {
             background-color: #666666;
             a {
@@ -130,24 +153,27 @@ body{
 }
 
 .footer-wrapper {
-  margin: 0 auto;
+  margin: 10px auto;
   width: $page-width;
-  footer {
-    margin-top: 45px;
-    padding-top: 5px;
+  .footer {
+    padding: 5px 0px;
     color: #2E2F30;
+    margin-top: 20px;
+    border-top: 2px #bbb solid;
   }
 }
 
 .container{
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
   background-color: #ffffff;
   height: auto;
   min-height: 720px;
-  width:$page-width;
+  width: 75%;
   padding: 40px;
   margin: 10px auto;
   align-content: center;
+  overflow: hidden;
+  border-right: rgba(128, 128, 128, 0.23) 1px solid;
+  float: left;
 
 
   .page-title{
@@ -178,6 +204,17 @@ body{
   }
 }
 
+.home-list{
+  list-style: none;
+  display: inline;
+
+  li{
+    margin: 20px 0px
+  }
+  .home-link{
+  }
+}
+/* questions */
 .question-container{
   height: 50%;
   margin: 20px;
@@ -185,6 +222,11 @@ body{
     width: 20%;
     height: inherit;
     display: inline-block;
+
+    .question-votes{
+      margin: 30px auto;
+      margin-left: 15px;
+    }
   }
   .question-wrapper{
     height: inherit;
@@ -206,13 +248,42 @@ body{
 
 .no-formatt{
   text-decoration: none;
+  color: initial;
+  &:visited{
+    color: initial;
+  }
+}
+
+.no-formatt-underline{
+  text-decoration: none;
+  color: inherit;
+  &:visited{
+    color: inherit;
+  }
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
+.blue-link{
+  color: cornflowerblue;
+  &:visited{
+    color: cornflowerblue;
+  }
+}
+
+.grey-link{
+  color: #CCCCCC;
+  &:visited{
+    color: #CCCCCC;
+  }
 }
 
 .question-link{
   display: block;
   text-decoration: none;
-  background-color: #ffda60;
-  border: 1px solid #ffa841;
+  background-color: $accent-color-light;
+  border: 1px solid $accent-color-border;
   padding: 20px;
   margin: 40px 20px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
@@ -240,22 +311,59 @@ body{
     padding: 10px;
   }
 }
+
+.small-question-link{
+  border: #CCCCCC dotted 1px;
+  padding: 1px;
+  margin: 10px 0px;
+  overflow: hidden;
+  .small-question-votes{
+    float: left;
+    width: auto;
+    margin-left: 30px;
+  }
+
+  .small-question-wrapper{
+    float: right;
+    width: 80%;
+    .small-question-link-title{
+      color: white;
+      font-weight: 900;
+      font-size: 110%;
+      background-color: $accent-color-light;
+      padding: 10px;
+      overflow: hidden;
+    }
+
+    .small-question-content{
+      padding: 10px;
+    }
+
+    .small-question-date{
+      overflow: hidden;
+    }
+  }
+}
+
+.question-votes{
+  margin: 30px auto;
+  margin-left: 15px;
+}
 /* all buttons */
 
 
 .btn{
+  border: none;
   border-color: #BBBBBB;
-  padding: 2px 4px;
+  padding: 10px 20px;
   background-color: $accent-color;
   color: white;
   font-weight: 900;
   border-radius: 1px ;
   transition: box-shadow 0.5s;
   margin: 10px;
-  &:hover{
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
 
-  }
 }
 
 .btn-primary{
@@ -265,6 +373,16 @@ body{
   color: white;
   font-weight: 900;
   border-radius: 1px ;
+}
+
+.btn-big{
+  border-color: #BBBBBB;
+  padding: 6px 12px;
+  background-color: $accent-color;
+  color: white;
+  font-weight: 900;
+  border-radius: 1px ;
+  border-radius: 3px;
 }
 
 .answer-btn{
@@ -282,6 +400,7 @@ body{
   height: 40%;
   padding: 40px;
   position: relative;
+  border-top: rgba(128, 128, 128, 0.18) 1px solid;
 
   .loading{
     top:0;
@@ -291,7 +410,7 @@ body{
     height: 100%;
     text-align: center;
     background: image_url('load.gif');
-    background: no-repeat image_url('load.gif') rgba(220,220,220, 0.5) center;
+    background: no-repeat image_url('load2.gif') rgba(220,220,220, 0.5) center;
 
   }
   .answer-wrapper {
@@ -309,22 +428,103 @@ body{
     margin: 20px;
   }
 
+  .best-answer-wrapper{
+    overflow: hidden;
+    font-size: 150%;
+    margin: 5px 0px;
+    padding: 20px 20px;
+    font-family: "Swanse - Regular";
+    background: #fff0b6;
+
+    .answer-votes-wrapper{
+
+      .answer-votes {
+        margin: 30px auto;
+        margin-left: 15px;
+      }
+    }
+
+    .answer-content-wrapper{
+      margin-top: 30px;
+      margin-left: 30px;
+    }
+    .answer-content{
+      padding-bottom: 10px;
+    }
+
+  }
+
   .answers-wrapper{
     padding: 20px;
 
+
     .answer{
-      margin: 40px 0px;
+      margin: 5px 0px;
       padding: 20px 5px;
-      border: solid 1px ;
-      border-color: #ffa841;
-      background-color: khaki;
       font-family: "Swanse - Regular";
+      border-bottom: rgba(128, 128, 128, 0.18) 1px solid;
+      overflow: hidden;
+      .answer-votes-wrapper{
+
+        .answer-votes {
+          margin: 30px auto;
+          margin-left: 15px;
+        }
+      }
+
+      .answer-content-wrapper{
+        margin-top: 30px ;
+        margin-left: 20px;
+      }
+      .answer-content{
+        padding-bottom: 10px;
+      }
     }
   }
 }
 
 
 
+
+/* flashes */
+.flash{
+  padding: 10px 5px;
+  border: 1px solid;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+.flash-danger{
+  background-color: #ffBBBB;
+  border-color: #ff3232;
+  color: #B82222;
+}
+
+.flash-message{
+  background-color: #DDDDff;
+  border-color: #C1C1ff;
+  color: #5555b8;
+}
+
+.flash-success{
+  background-color: #BBffBB;
+  border-color: #22b822;
+  color: #126512;
+}
+
+
+/* misc */
+
+.super-link{
+  font-family: "Unna - Bold Italic";
+  width: auto;
+  padding: 10px 0px;
+  font-size: 28px;
+  text-decoration: underline;
+  &:visited{
+    color: inherit;
+  }
+}
 .hidden{
   display: none;
 }
@@ -339,4 +539,180 @@ textarea{
 
 br{
   border: solid 5px #666666;
+}
+
+.float-left{
+  float: left;
+}
+
+.float-right{
+  float: right;
+}
+
+.formatt-link{
+  text-decoration: none;
+  color: #717171 !important;
+  font-weight: 100 !important;
+  font-size: 90%;
+  &:visited{
+    color: inherit;
+  }
+  &:hover{
+    text-decoration: underline;
+  }
+
+}
+
+.bold{
+  font-weight: 800;
+}
+.not-important{
+  font-size: 80%;
+  color: #717171;
+  overflow: hidden;
+}
+
+.link-list{
+  .link-listitem{
+    padding: 10px;
+    padding-bottom: 30px;
+    margin: 30px 40px;
+    color: cornflowerblue;
+    border-bottom: 1px solid $question-grey;
+  }
+}
+
+/* forum stuff */
+.topics-container{
+  width: 100%;
+  background-color: ivory;
+  height: auto;
+  min-height: 720px;
+  padding: 40px;
+  margin: 10px auto;
+  align-content: center;
+  overflow: hidden;
+  
+  .topics-table{
+    margin: 0 auto;
+    margin-bottom: 40px;
+    width: 80%;
+    border-collapse: collapse;
+    thead{
+      background-color: $accent-color-light;
+      width: 100%;
+      color: $accent-color-border;
+      tr{
+        border: 1px solid $accent-color-border;
+        color: ivory;
+      }
+    }
+
+    tbody{
+      tr{
+        td{
+          padding: 5px 20px;
+          margin: 0;
+          border: solid 1px $accent-color-border;
+        }
+      }
+
+      tr:nth-child(even){
+        background-color: #e7e7e7
+      }
+    }
+  }
+}
+
+/* form input stuff */
+
+.input{
+  padding: 10px 20px;
+}
+
+.input-text{
+  border: 1px solid #CFCFCF;
+  border-radius: 3px;
+  width: 75%;
+}
+
+/* side navigation stuffs */
+.side-nav{
+  background-color: white;
+  float: right;
+  width: 25%;
+  padding: 10px;
+  min-height: 60%;
+
+  .side-recent-questions{
+    margin: 20px 0;
+
+    .side-nav-title{
+      margin: 20px 0;
+      text-decoration: underline;
+    }
+
+    .side-nav-content-wrapper{
+
+      .side-nav-content{
+        padding: 20px 0;
+        border-bottom: 1px solid $question-grey;
+        .side-vote{
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  .side-nav-title{
+    margin: 20px 0;
+    text-decoration: underline;
+    color: #CCCCCC;
+    font-weight: 600;
+  }
+}
+
+.side-bar{
+  color: dodgerblue;
+}
+
+.scope{
+  overflow: hidden;
+  margin: 0 auto;
+  width: $page-width;
+  background-color: white;
+  margin-top: 80px;
+  padding: 0 10px;
+}
+
+.arrow-up{
+  width:0;
+  height:0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid #CCCCCC;
+}
+
+.arrow-down{
+  width:0;
+  height:0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid #CCCCCC;
+}
+
+.arrow-up-active{
+  width:0;
+  height:0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid $active;
+}
+
+.arrow-down-active{
+  width:0;
+  height:0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid $active;
 }

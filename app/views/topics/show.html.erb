@@ -1,0 +1,17 @@
+<% provide :title, @topic.name.camelcase %>
+<div class="topics-container">
+  <table class="topics-table">
+	<thead>
+	<tr>
+	  <th class="topic-general" colspan="2">
+		<%= @topic.name %>
+	  </th>
+	</tr>
+	</thead>
+	<tbody>
+	<% @posts.each do |post| %>
+		<tr><td><%= link_to post.title, topic_post_path(id: post.url, topic_id: @topic.url) ,class: "no-formatt" %></td><td>Views:<%= %> Replies:<%= Reply.where(post_id: post.id).size %></td></tr>
+	<% end %>
+	</tbody>
+  </table>
+</div>

@@ -1,8 +1,16 @@
-<a class="question-link no-formatt" href="<%= field_question_path(field_id: field.name, id: question.url) %>">
-  <div class="question-link-title">
-	  <%= question.title %>
+<div class="small-question-link " >
+  <div class="small-question-votes"><div class="votes-partial">
+	<%= render partial: 'questions/votes', locals: {question: question} %>
+  </div></div>
+  <div class="small-question-wrapper">
+	<div class="small-question-link-title">
+	  <%= link_to question.title[0..30], field_question_path(id: question.url, field_id: field.id), class:"no-formatt-underline float-left"%>
+	  <div class="float-right">
+		asked by,<%= link_to User.find(question.user_id).name, user_path(User.find(question.user_id).name), class:"float-right formatt-link"%>
+	  </div>
+	</div>
+	<div class="small-question-content">
+	  <%= question.content[0..140] %>
+	</div>
   </div>
-  <div class="question-partial">
-	<%= question.content %>
-  </div>
-</a>
+</div>

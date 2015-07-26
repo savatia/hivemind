@@ -15,6 +15,24 @@ class AnswersController < ApplicationController
     end
   end
 
+  def best
+    @answer = Answer.find(params[:answer_id])
+    @question = Question.find(@answer.question_id)
+
+    if !Answer.where(best: true, question_id: @question.id).any?
+      @answer.best = true
+      @answer.save
+    end
+
+    respond_to  do |format|
+      if request.xhr?
+        format.js {  }
+      else
+        format.html { redirect_to field_question_path(field_id: Field.find(@question.field_id).name, id: @question.url)  }
+      end
+    end
+  end
+
   private
   def answers_params
     params.require(:answer).permit(:content, :question_id)

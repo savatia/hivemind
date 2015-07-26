@@ -7,7 +7,7 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
-    @question.url = check_duplicate_url @question.title.split(" ").join("_")[0..30]
+    @question.url = check_duplicate_url @question.title.split(" ").join("_")[0..30], Question
 
     @question.user_id = current_user.id
     @field = Field.find(params[:field])
@@ -27,7 +27,13 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-
+    @question = Question.find(params[:id])
+    if current_user == User.find(@question.user_id)
+      @question.destroy
+      redirect_to questions_path
+    else
+      redirect_to field_question_path(id: @question.url, field_id: @question.field_id)
+    end
   end
 
   def edit

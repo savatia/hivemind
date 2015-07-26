@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150622183816) do
+ActiveRecord::Schema.define(version: 20150721155504) do
+
+  create_table "answer_votes", force: :cascade do |t|
+    t.integer  "answer_id"
+    t.integer  "user_id"
+    t.integer  "vector"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "answer_votes", ["answer_id", "user_id"], name: "index_answer_votes_on_answer_id_and_user_id", unique: true
+  add_index "answer_votes", ["answer_id"], name: "index_answer_votes_on_answer_id"
+  add_index "answer_votes", ["user_id"], name: "index_answer_votes_on_user_id"
 
   create_table "answers", force: :cascade do |t|
     t.text     "content"
@@ -27,11 +39,32 @@ ActiveRecord::Schema.define(version: 20150622183816) do
   add_index "answers", ["question_id"], name: "index_answers_on_question_id"
   add_index "answers", ["user_id"], name: "index_answers_on_user_id"
 
+  create_table "closings", force: :cascade do |t|
+    t.integer  "moderator_id"
+    t.integer  "question_id"
+    t.string   "reason"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "closings", ["moderator_id"], name: "index_closings_on_moderator_id"
+  add_index "closings", ["question_id"], name: "index_closings_on_question_id"
+
   create_table "fields", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "moderators", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "field_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "moderators", ["field_id"], name: "index_moderators_on_field_id"
+  add_index "moderators", ["user_id"], name: "index_moderators_on_user_id"
 
   create_table "posts", force: :cascade do |t|
     t.integer  "topic_id"
@@ -40,10 +73,23 @@ ActiveRecord::Schema.define(version: 20150622183816) do
     t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "url"
   end
 
   add_index "posts", ["topic_id"], name: "index_posts_on_topic_id"
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"
+
+  create_table "question_votes", force: :cascade do |t|
+    t.integer  "question_id"
+    t.integer  "user_id"
+    t.integer  "vector"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "question_votes", ["question_id", "user_id"], name: "index_question_votes_on_question_id_and_user_id", unique: true
+  add_index "question_votes", ["question_id"], name: "index_question_votes_on_question_id"
+  add_index "question_votes", ["user_id"], name: "index_question_votes_on_user_id"
 
   create_table "questions", force: :cascade do |t|
     t.string   "title"
@@ -53,9 +99,10 @@ ActiveRecord::Schema.define(version: 20150622183816) do
     t.integer  "votes",      default: 0
     t.datetime "date"
     t.integer  "user_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.string   "url"
+    t.boolean  "best",       default: false
   end
 
   add_index "questions", ["field_id", "created_at"], name: "index_questions_on_field_id_and_created_at"
@@ -77,8 +124,10 @@ ActiveRecord::Schema.define(version: 20150622183816) do
 
   create_table "topics", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "general",    default: false
+    t.string   "url"
   end
 
   create_table "users", force: :cascade do |t|
@@ -88,6 +137,7 @@ ActiveRecord::Schema.define(version: 20150622183816) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.boolean  "admin",           default: false
+    t.integer  "rep",             default: 1
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

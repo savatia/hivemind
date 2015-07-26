@@ -8,11 +8,18 @@
 </head>
 <body>
 <%= render 'layouts/header' %>
-<% flash.each do |message_type, message| %>
-	<div class="flash flash-"<%= message_type %>><%= message %></div>
+<div class="scope">
+<% if controller_name == "topics" %>
+ <%= yield %>
+<% else %>
+	<div class="container"<% if controller_name = "posts"%><%= "style=\"width:100%\"" %><% end %>>
+	  <% flash.each do |message_type, message| %>
+		  <div class="flash flash-<%= message_type %>"><%= message %></div>
+	  <% end %>
+		<%= yield %>
+	</div>
 <% end %>
-<div class="container">
-	<%= yield %>
+  <%= render 'questions/side_bar' %>
 </div>
 <div class="footer-wrapper">
 <%= render 'layouts/footer' %>

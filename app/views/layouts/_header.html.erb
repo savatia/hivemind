@@ -8,6 +8,12 @@
 	<li class="topbar-listitem">
 	<%= link_to "Help", help_path, class: "topbar-link no-formatt" %>
 	</li>
+	<li class="topbar-listitem">
+	  <%= link_to "Forums", forums_path, class: "topbar-link no-formatt" %>
+	</li>
+	<li class="topbar-listitem">
+	  <%= link_to "Questions", questions_path, class: "topbar-link no-formatt" %>
+	</li>
 	<% if !current_user.nil? %>
 		<li class="topbar-listitem account" >
 		  <% @account = current_user.name
@@ -21,13 +27,19 @@
 				<%= link_to "Profile", user_path(id:current_user.name), class:"account-link no-formatt"  %>
 			  </li>
 			  <li class="account-listitem">
-				<%= link_to "Logout", logout_path, class:"no-formatt account-link" , method: :delete %>
-			  </li>
-			  <li class="account-listitem">
 				<%= link_to "Settings", edit_user_path(current_user), class:"no-formatt account-link"  %>
+			  </li>
+			  <% if current_user.admin? %>
+			  <li class="account-listitem">
+				<%= link_to "Admin Functions", admin_functions_path, class:"no-formatt account-link"  %>
+			  </li>
+			  <% end %>
+			  <li class="account-listitem">
+				<%= link_to "Logout", logout_path, class:"no-formatt account-link" , method: :delete %>
 			  </li>
 			</ul>
 		</li>
+
 	<% else %>
 		<li id="topbar-login"class="topbar-listitem">
 		  <%= link_to "Login", login_path, class: "topbar-link no-formatt" %>

@@ -28,10 +28,16 @@ module SessionHelper
 
   def logged_in
     if current_user.nil?
-      flash[:danger] = "You are not looged in!"
-      redirect_to root_url
+      flash[:message] = "Login to continue!"
+      redirect_to login_path
     end
   end
 
+  def moderator
+    if !Moderator.find_by(user: current_user)
+      flash[:message] = "Not Authorized!"
+      redirect_to root_url
+    end
+  end
 
 end

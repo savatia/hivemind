@@ -1,0 +1,8 @@
+<% provide :title,'Most Recent Questions' %>
+<% Field.all.each do |field| %>
+	<div><%= link_to field.name.camelcase, field_questions_path(field_id: field.name) , class:"no-formatt super-link" %>
+	<% Question.where(field_id: field.id)[0..5].each do |question| %>
+		<div><%= render(partial:'small_question',locals:{:question => question,:field=> field})%></div>
+	<% end %>
+	</div>
+<% end %>

@@ -1,0 +1,9 @@
+<% provide :title, "New Post for "+ @topic.name.camelcase %>
+<div class="topics-container">
+  <%= form_for @post, class:"form" do |f| %>
+	  <%= f.hidden_field :topic_id, value:@topic.id %>
+	  <%= f.label :title, class:"form-label" %>
+	  <%= f.text_field :title, class:"form-input" %>
+	  <%= f.submit :submit, class:"btn" %>
+  <% end %>
+</div>
