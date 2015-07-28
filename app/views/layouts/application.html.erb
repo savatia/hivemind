@@ -9,16 +9,12 @@
 <body>
 <%= render 'layouts/header' %>
 <div class="scope">
-<% if controller_name == "topics" %>
- <%= yield %>
-<% else %>
-	<div class="container"<% if controller_name = "posts"%><%= "style=\"width:100%\"" %><% end %>>
+	<div class="container">
 	  <% flash.each do |message_type, message| %>
 		  <div class="flash flash-<%= message_type %>"><%= message %></div>
 	  <% end %>
-		<%= yield %>
+	  <%= yield %>
 	</div>
-<% end %>
   <%= render 'questions/side_bar' %>
 </div>
 <div class="footer-wrapper">

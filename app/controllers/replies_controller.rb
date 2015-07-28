@@ -3,6 +3,7 @@ class RepliesController < ApplicationController
     @reply = Reply.new(reply_params)
     @post = Post.find(@reply.post_id)
     @reply.date = Time.now
+    @reply.user = current_user
     @reply.user_id = current_user.id
     @reply.save
     respond_to  do |format|

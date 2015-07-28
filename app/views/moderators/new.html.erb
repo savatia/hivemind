@@ -1,6 +1,17 @@
 <% provide :title, "Add New Moderator" %>
-<h1 class="Add New Moderator"></h1>
-<input type="text" id="search"/>
+<div id="field_select" class="display">
+<h1 class="page-title">Choose field:</h1>
+<ul class="link-list">
+<% Field.all.each do |field| %>
+  <li class="link-listitem"><%= link_to field.name, "#", class: "no-formatt link-listitem field-link" %></li>
+<% end %>
+</ul>
+</div>
+<div id="user_search" class="hidden">
+  <h1 class="page-title" id="page_title"></h1>
+<h1 class="not-important">Search for user to add:</h1>
+<div class="search-wrapper"> <input type="text"  placeholder="search for users..." id="search" class="input input-text"/><span class="search-span"><a href="#"><img src="<%= image_url 'search.png' %>" class="search-button"/></a> </span></div>
 <canvas class="hidden" id="results"></canvas>
 <%= form_for @moderator do |f| %>
 <% end %>
+</div>

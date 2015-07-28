@@ -28,18 +28,25 @@ $(document).ready(function(){
 
 
 
-		$('#answer_submit').click(function () {
-			$('#loading').fadeIn().addClass("show").removeClass("hidden");
-			$.ajax({
-				type: "POST",
-				url: "/answers",
-				data: {answer: {content: $('#answer_box').val(), question_id: $('#question_id').val()}},
-				success: function (result) {
-					$('#loading').fadeOut().addClass("hidden").removeClass("show");
-					$("#answer_wrapper").removeClass("show").addClass("hidden");
-				},
-				error: function (xhr, status, error) {
-				}
-			});
+	$('#answer_submit').click(function () {
+		$('#loading').fadeIn().addClass("show").removeClass("hidden");
+		$.ajax({
+			type: "POST",
+			url: "/answers",
+			data: {answer: {content: $('#answer_box').val(), question_id: $('#question_id').val()}},
+			success: function (result) {
+				$('#loading').fadeOut().addClass("hidden").removeClass("show");
+				$("#answer_wrapper").removeClass("show").addClass("hidden");
+			},
+			error: function (xhr, status, error) {
+			}
 		});
+	});
+
+
+	$('.field-link').click(function(){
+		$('#field_select').removeClass('display').addClass('hidden');
+		$('#user_search').removeClass('hidden').addClass('display');
+		$('#page_title').innerHTML($.this.text);
+	});
 });

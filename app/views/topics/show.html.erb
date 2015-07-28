@@ -10,7 +10,7 @@
 	</thead>
 	<tbody>
 	<% @posts.each do |post| %>
-		<tr><td><%= link_to post.title, topic_post_path(id: post.url, topic_id: @topic.url) ,class: "no-formatt" %></td><td>Views:<%= %> Replies:<%= Reply.where(post_id: post.id).size %></td></tr>
+		<tr><td><%= link_to post.title, topic_post_path(id: post.url, topic_id: @topic.url) ,class: "no-formatt blue-link" %><span class="float-right not-important">Views:<%= %> &nbsp; Replies:<%= Reply.where(post_id: post.id).size %> &nbsp;by&nbsp; <%= link_to User.find(post.user_id).name, "#", class:"blue-link no-formatt" %></span></td></tr>
 	<% end %>
 	</tbody>
   </table>
