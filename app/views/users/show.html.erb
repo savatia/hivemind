@@ -1,2 +1,13 @@
 <% provide(:title, @user.name) %>
-<h1 class="page-title"><%= @user.name %></h1>
+<div><span class="page-title"> <%= @user.name %></span>
+  <% if @user = current_user %>
+	<span><%= link_to "edit", edit_user_path(current_user), class: "not-important blue-link" %></span>
+<% end %>
+</div>
+
+
+<% if @user.avatar.url.nil? %>
+	<img src="<%= image_url "default_avatar.png" %>" class="user-avatar"/>
+<% else %>
+<%= image_tag @user.avatar.url if @user.avatar? %>
+<% end %>

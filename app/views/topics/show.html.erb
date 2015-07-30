@@ -1,4 +1,13 @@
 <% provide :title, @topic.name.camelcase %>
+<div class="breadcrunbs">
+  <% if @topic.general? %>
+	  <span class="breadcrumb"><%= link_to "General->", topics_path, class: "no-formatt blue-link small" %></span>
+  <% else %>
+	  <span class="breadcrumb"><%= link_to "Miscelleneous->", topics_path, class: "no-formatt blue-link small" %></span>
+  <% end %>
+  <span class="breadcrumb"><%= link_to @topic.name, topic_path(@topic.url), class: "no-formatt blue-link small" %></span>
+</div>
+<div style="overflow: initial;" class="float-right not-important"><%= link_to "+new post...", new_topic_post_path(topic_id: @topic.url), class:"btn-grey no-formatt not-important  "%></div>
 <div class="topics-container">
   <table class="topics-table">
 	<thead>

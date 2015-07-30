@@ -15,6 +15,18 @@
 		  <% end %>
 	  <% end %>
 	</div>
+	<%= link_to "New question", new_question_path, class:" no-formatt not-important float-right btn-grey" %>
+  </div>
+  <div class="side-recent-questions">
+	<div class="side-nav-title"><%= link_to "Recent Posts", forums_path, class:"side-bar no-formatt grey-link bold" %></div>
+	<div class="side-nav-content-wrapper">
+	  <% recent = Post.all[0..4] %>
+	  <% if !recent.nil? %>
+		  <% recent.each do |post| %>
+			  <div class="side-nav-content"><span class="not-important side-vote"> Replies:<%= Reply.where(post_id: post.id).size.to_s %></span><span class="side-question"><%= link_to post.title, topic_post_path(topic_id: Topic.find(post.topic_id).url, id:post.url), class:"no-formatt blue-link" %></span></div>
+		  <% end %>
+	  <% end %>
+	</div>
   </div>
   <br/>
   <p>

@@ -42,7 +42,7 @@ Rails.application.routes.draw do
   end
 
   resources :fields, path: '' , only:[:show]  do
-    resources :questions, only:[:show, :edit]
+    resources :questions, only:[:show, :edit, :new]
     get 'questions' => 'fields#questions'
   end
 

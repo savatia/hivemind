@@ -405,6 +405,19 @@ body{
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
 }
 
+.btn-grey{
+  border: 1px solid #dddddd;
+  padding: 5px 10px;
+  background-color: #f2f2f2;
+  color: #BBBBBB;
+  font-weight: 900;
+  border-radius: 1px ;
+  transition: box-shadow 0.5s;
+  margin: 10px;
+  border-radius: 3px;
+  //box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
+}
+
 .answer-container{
   height: 40%;
   padding: 40px;
@@ -542,9 +555,7 @@ body{
   display: inherit;
 }
 
-textarea{
-  width:75%;
-}
+
 
 br{
   border: solid 5px #666666;
@@ -579,6 +590,9 @@ br{
   font-size: 80%;
   color: #717171;
   overflow: hidden;
+  &:visited{
+    color: #717171;
+  }
 }
 
 .link-list{
@@ -635,9 +649,15 @@ br{
 
 
 /* form input stuff */
+label{
+  margin: 10px;
+  display: block;
+}
 
-.input{
+.input, textarea{
   padding: 10px 20px;
+  display: block;
+  margin: 10px auto;
 }
 
 .input-text{
@@ -646,11 +666,27 @@ br{
   width: 75%;
 }
 
-input[type="text"],input[type="password"],input[type="email"]{
+input[type="text"],input[type="password"],input[type="email"], textarea{
   border: 1px solid #CFCFCF;
   border-radius: 3px;
   width: auto;
   padding: 10px 20px;
+  margin: 10px;
+}
+
+.input-text-area{
+  width: 75%;
+  display: block;
+}
+
+textarea{
+  width: 75%;
+  display: block;
+}
+
+form{
+  display: block;
+  width: 75%;
 }
 
 /* side navigation stuffs */
@@ -663,6 +699,7 @@ input[type="text"],input[type="password"],input[type="email"]{
 
   .side-recent-questions{
     margin: 20px 0;
+    overflow: hidden;
 
     .side-nav-title{
       margin: 20px 0;
@@ -768,9 +805,7 @@ option{
   background-color: white;
   color: black;
 }
-form{
-  display: table-caption;
-}
+
 
 .small{
   font-size: 75%;
@@ -783,6 +818,7 @@ form{
   color: #717171;
   overflow: hidden;
 }
+
 
 /* post stuffs*/
 .post-table{
@@ -815,11 +851,13 @@ form{
   font-size: 80%;
   padding-bottom: 15px;
   border-bottom: #CCCCCC 1px solid;
+  margin-bottom: 15px;
+
 }
 
 .reply-content{
   min-height: 60px;
-  width: 300px;
+  width: 100%;
 }
 
 .signature {
@@ -836,5 +874,9 @@ form{
   padding-right: 10px;
   margin-right: 10px;
   border-right: #CCCCCC 1px solid;
+}
 
+.user-avatar{
+  width: 100%;
+  max-width:200px;
 }

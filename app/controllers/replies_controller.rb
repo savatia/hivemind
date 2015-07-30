@@ -6,6 +6,7 @@ class RepliesController < ApplicationController
     @reply.user = current_user
     @reply.user_id = current_user.id
     @reply.save
+    Notification.create!(user_id:@post.user_id, desc:"new_reply", model_id:@reply.id)
     respond_to  do |format|
       if request.xhr?
         format.js {  }

@@ -6,6 +6,7 @@ class AnswersController < ApplicationController
     @answer.question = @question
     @answer.date = Time.now
     @answer.save
+    Notification.create!(user_id:@question.user_id, desc:"new_answer", model_id:@answer.id)
     respond_to  do |format|
       if request.xhr?
         format.js {  }
@@ -22,6 +23,7 @@ class AnswersController < ApplicationController
     if !Answer.where(best: true, question_id: @question.id).any?
       @answer.best = true
       @answer.save
+      Notification.create!(user_id:@answer.user_id, desc:"best_answer", type_id:@question.id)
     end
 
     respond_to  do |format|

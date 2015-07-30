@@ -8,10 +8,9 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     @question.url = check_duplicate_url @question.title.split(" ").join("_")[0..30], Question
-
+    @question.url.remove(".")
     @question.user_id = current_user.id
-    @field = Field.find(params[:field])
-    @question.field_id = @field.id
+    @field = Field.find(@question.field_id)
     @question.save
     redirect_to field_question_path(id:@question.url, field_id: @field.name)
   end
@@ -43,6 +42,6 @@ class QuestionsController < ApplicationController
 
   private
   def question_params
-    params.require(:question).permit(:title, :content, :field)
+    params.require(:question).permit(:title, :content, :field_id)
   end
 end

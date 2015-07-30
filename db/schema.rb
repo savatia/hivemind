@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150721155504) do
+ActiveRecord::Schema.define(version: 20150729184615) do
 
   create_table "answer_votes", force: :cascade do |t|
     t.integer  "answer_id"
@@ -63,8 +63,20 @@ ActiveRecord::Schema.define(version: 20150721155504) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "moderators", ["field_id", "user_id"], name: "index_moderators_on_field_id_and_user_id", unique: true
   add_index "moderators", ["field_id"], name: "index_moderators_on_field_id"
   add_index "moderators", ["user_id"], name: "index_moderators_on_user_id"
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.string   "desc",       null: false
+    t.integer  "model_id",   null: false
+    t.boolean  "seen"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
 
   create_table "posts", force: :cascade do |t|
     t.integer  "topic_id"
@@ -138,6 +150,9 @@ ActiveRecord::Schema.define(version: 20150721155504) do
     t.datetime "updated_at",                      null: false
     t.boolean  "admin",           default: false
     t.integer  "rep",             default: 1
+    t.string   "signature"
+    t.string   "avatar"
+    t.string   "about"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

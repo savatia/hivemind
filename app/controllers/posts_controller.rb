@@ -11,7 +11,8 @@ class PostsController < ApplicationController
     @post.url = check_duplicate_url @post.title.split(" ").join("_")[0..30], Post
     @topic = Topic.find(@post.topic_id)
     @post.save
-    flash[:success] = "Topic Created!"
+    flash[:success] = "Post Created!"
+
     redirect_to topic_post_path(id:@post.url, topic_id: @topic.url)
   end
 

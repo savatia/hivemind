@@ -16,7 +16,9 @@
 	</li>
 	<% if !current_user.nil? %>
 		<li class="topbar-listitem account" >
-		  <% @account = current_user.name
+		  <% @account  =String.new
+			 @account = current_user.notifications_count.to_s if current_user.notifications_count!=0
+			 @account += current_user.name
 			  if current_user.admin?
 				@account += "(admin)"
 			  end

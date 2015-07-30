@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :logged_in, only: [:edit, :update]
   def new
     @user = User.new
   end
@@ -22,8 +23,21 @@ class UsersController < ApplicationController
     @questions = Question.where(:user_id => @user.id)
   end
 
+  def edit
+
+  end
+
+  def update
+    if current_user.update_attributes(user_params)
+      flash[:success] = "Profile updated"
+      redirect_to user_path(id:current_user.name)
+    else
+      render 'edit'
+    end
+  end
+
   private
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :signature)
     end
 end

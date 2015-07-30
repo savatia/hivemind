@@ -12,35 +12,52 @@
 
 <div class="post-wrapper">
   <div class="post-table">
-	  <div class="post-title-wrapper">
-		  <div class="post-title">
-			<%= @post.title %>
-			<div class="post-info not-important">posted on &nbsp; <%= @post.created_at %> &nbsp;by,&nbsp;
-			  <span><%= link_to User.find(@post.user_id).name, user_path(User.find(@post.user_id).name), class:"no-formatt blue-link" %></span>
-			</div>
-		  </div>
+	<div class="post-title-wrapper">
+	  <div class="post-title">
+		<%= @post.title %>
+		<div class="post-info not-important">posted on &nbsp; <%= @post.created_at %> &nbsp;by,&nbsp;
+		  <span><%= link_to User.find(@post.user_id).name, user_path(User.find(@post.user_id).name), class:"no-formatt blue-link" %></span>
+		</div>
 	  </div>
-  <div>
+	</div>
+	<% if !current_user.nil? %>
+		<div class="reply-wrapper">
+		  <%= form_for @reply do |f| %>
+			  <%= f.hidden_field :post_id, value: @post.id %>
+			  <%= f.text_area :content, class:"input input-text-area", style:"margin:0;" %>
+			  <%= f.submit :submit, class:"submit btn btn-big float-left"%>
+		  <% end %>
+		</div>
+	<% end %>
 	<% @replies.each do |reply|%>
 		<div class="post-content-wrapper">
 		  <% user = User.find(reply.user_id) %>
 		  <div class="reply-wrapper">
 			<div class="user-info-wrapper float-left">
-			  <div class="user-avatar <img src="<%= image_url 'logo.png' %>"></div>
-			<div class="user-name" ><strong><%= link_to(user.name, user_path(user.name), class:"no-formatt blue-link") %></strong></div>
-				<div class="user-info">User rep: <strong><%= user.rep%></strong></div>
-			<div class="user-info">Member Since: <strong><%= user.created_at.month.to_s + "/"+user.created_at.year.to_s %></strong></div>
+			  <div class="user-avatar">
+				<% if user.avatar.url.nil? %>
+					<img src="<%= image_url "default_avatar.png" %>" class="user-avatar"/>
+				<% else %>
+					<%= image_tag(user.avatar.url, class: "user-avatar") if user.avatar? %>
+				<% end %>
+			  </div>
+			  <div class="user-name" ><strong><%= link_to(user.name, user_path(user.name), class:"no-formatt blue-link") %></strong></div>
+			  <div class="user-info">User rep: <strong><%= user.rep%></strong></div>
+			  <div class="user-info">Member Since: <strong><%= user.created_at.month.to_s + "/"+user.created_at.year.to_s %></strong></div>
+			</div>
+			<div class="reply-content-wrapper ">
+			  <div class="reply-content"><%= reply.content %></div>
+			  <div class="info not-important"><%= reply.created_at %></div>
+			</div>
 		  </div>
-		  <div class="reply-content-wrapper float-left">
-			<div class="reply-content"><%= reply.content %></div>
-			<div class="info not-important"><%= reply.created_at %></div>
+		  <div class="signature">
+			<% if user.signature.nil? %>
+			"Not creative enough to write a signature"
+			<% else %>
+				<%= user.signature %>
+			<% end %>
 		  </div>
-		</div>
-		<div class="signature">
-		  "Default signature, ignore"
-		</div>
 		</div>
 	<% end %>
   </div>
-</div>
 </div>
