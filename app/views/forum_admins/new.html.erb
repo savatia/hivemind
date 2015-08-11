@@ -1,0 +1,28 @@
+<% provide :title, "Add New Forum Administrator" %>
+<div class="page-title">Add New Forum Administrator:</div>
+
+<%= form_for @forum_admin do |f| %>
+	<%= render 'layouts/error_messages',  object: f.object %>
+	<%= f.label :topic, class:"form-label not-important" %>
+	<select name="forum_admin[topic]" class="form-input">
+
+	  <% if current_user.admin? %>
+		  <% Topic.all.each  do |topic| %>
+			  <option value="<%= topic.name %>" class="form-input">
+				<%= topic.name %>
+			  </option>
+		  <% end %>
+	  <% else %>
+		  <% ForumAdmin.where(user_id: current_user.id).each do |admin| %>
+			  <option value="<%= Topic.find(admin.topic_id).name %>" class="form-input">
+				<%= Topic.find(admin.topic_id).name %>
+			  </option>
+		  <% end %>
+	  <% end %>
+
+
+	</select>
+	<%= f.label :user, class:"form-label not-important" %>
+	<%= f.text_field :user, class:"form-input", placeholder:"enter user name" %>
+	<%= f.submit  class:"btn"%>
+<% end %>

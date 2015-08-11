@@ -1,0 +1,70 @@
+<% provide :title, "Notifications" %>
+<div class="page-title">Notifications</div>
+<% @unseen_notifications.each  do |notification|%>
+	<div class="notification unseen">
+
+	  <div class="notification-content">
+		<% if notification.desc=="new_answer"%>
+			<% answer = Answer.find(notification.model_id) %>
+			<% user = User.find(answer.user_id) %>
+			<% question = Question.find(answer.question_id) %>
+			<%= link_to user.name, user_path(user.name, class: "no-formatt blue-link") %> has answered your question "<%= link_to question.title, field_question_path(id:question.url, field_id:Field.find(question.field_id).name), class: "no-formatt blue-link" %>":
+			<div class="notification-preview">
+			  "<%= answer.content %>"
+			</div>
+			on <%= answer.created_at %>
+		<% elsif notification.desc=="new_reply"%>
+			<% reply = Reply.find(notification.model_id) %>
+			<% post = Post.find(reply.post_id) %>
+			You have a new reply for the post,"<%= link_to post.title[0..15]+"...", topic_post_path(id: post.url, topic_id: Topic.find(post.topic_id).url) , class: "no-formatt blue-link" %>":
+			<div class="notification-preview">
+			  "<%= reply.content %>"
+			</div>
+			on <%= reply.created_at %>
+		<% elsif notification.desc=="best_answer" %>
+			<% answer = Answer.find(notification.model_id) %>
+			<% question = Question.find(answer.question_id) %>
+			Congradulations! Your answer:
+			<div class="notification-preview">
+			  "<%= answer.content %>"
+			</div>
+			to "<%= link_to question.title, field_question_path(id:question.url, field_id:Field.find(question.field_id).name), class: "no-formatt blue-link" %>" has been chosen as the <strong>best answer</strong>, on <%= answer.updated_at %>.
+		<% end %>
+	  </div>
+	  <%= link_to "dismiss", notification, method: :delete, class: "no-formatt not-important float-right" %>
+	</div>
+<% end %>
+<% @seen_notifications.each  do |notification|%>
+	<div class="notification seen">
+
+	  <div class="notification-content">
+		<% if notification.desc=="new_answer"%>
+			<% answer = Answer.find(notification.model_id) %>
+			<% user = User.find(answer.user_id) %>
+			<% question = Question.find(answer.question_id) %>
+			<%= link_to user.name, user_path(user.name, class: "no-formatt blue-link") %> has answered your question "<%= link_to question.title, field_question_path(id:question.url, field_id:Field.find(question.field_id).name), class: "no-formatt blue-link" %>":
+			<div class="notification-preview">
+			  "<%= answer.content %>"
+			</div>
+			on <%= answer.created_at %>
+		<% elsif notification.desc=="new_reply"%>
+			<% reply = Reply.find(notification.model_id) %>
+			<% post = Post.find(reply.post_id) %>
+			You have a new reply for the post,"<%= link_to post.title[0..15]+"...", topic_post_path(id: post.url, topic_id: Topic.find(post.topic_id).url) , class: "no-formatt blue-link" %>":
+			<div class="notification-preview">
+			  "<%= reply.content %>"
+			</div>
+			on <%= reply.created_at %>
+		<% elsif notification.desc=="best_answer" %>
+			<% answer = Answer.find(notification.model_id) %>
+			<% question = Question.find(answer.question_id) %>
+			Congradulations! Your answer:
+			<div class="notification-preview">
+			  "<%= answer.content %>"
+			</div>
+			to "<%= link_to question.title, field_question_path(id:question.url, field_id:Field.find(question.field_id).name), class: "no-formatt blue-link" %>" has been chosen as the <strong>best answer</strong>, on <%= answer.updated_at %>.
+		<% end %>
+	  </div>
+	  <%= link_to(image_tag( image_url('delete.png'), class: "delete-image"),notification,  method: :delete, class: "no-formatt not-important float-right")%>
+	</div>
+<% end %>

@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :logged_in, except: :show
+  before_action :logged_in, except:[ :show, :index]
   def new
     @quetion = Question.new
     @fields = Field.all
@@ -11,6 +11,7 @@ class QuestionsController < ApplicationController
     @question.url.remove(".")
     @question.user_id = current_user.id
     @field = Field.find(@question.field_id)
+
     @question.save
     redirect_to field_question_path(id:@question.url, field_id: @field.name)
   end
@@ -19,6 +20,26 @@ class QuestionsController < ApplicationController
     @question = Question.find_by(url:params[:id])
     @answer = Answer.new
     @answers = Answer.where(:question_id => @question.id)
+
+    if !current_user.nil?
+
+      Notification.where(user_id: current_user.id, desc:"new_answer", seen:nil).each do |n|
+        question = Question.find(Answer.find(n.model_id).question_id)
+        if question == @question
+          n.seen = true
+          n.save
+        end
+      end
+
+      Notification.where(user_id: current_user.id, desc:"best_answer", seen:nil).each do |n|
+        question = Question.find(Answer.find(n.model_id).question_id)
+        if question == @question
+          n.seen = true
+          n.save
+        end
+      end
+    end
+
   end
 
   def index

@@ -1,0 +1,14 @@
+<% provide :title, "All moderators" %>
+<div class="page-title">All Moderators</div>
+<% Field.all.each do |field| %>
+	<div class="field-wrapper">
+		<div><%= link_to field.name, field_path(field.name), class: "no-formatt blue-link" %></div>
+		<% Moderator.where(field_id: field.id).each do |mod|%>
+			<% user = User.find(mod.user_id) %>
+			<div class="small-user">
+			<%= image_tag image_url(user.avatar), class: "small-avatar vertical-middle"%>
+			<%= link_to user.name, user_path(user.name), class: "no-formatt dark-grey-link vertical-middle"%>
+			</div>
+		<% end %>
+	</div>
+<% end %>

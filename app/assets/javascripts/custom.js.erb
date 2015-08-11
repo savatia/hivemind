@@ -1,5 +1,8 @@
 $(document).ready(function(){
 
+	$('#search_button').click(function(){
+		$('#search-form').submit();
+	});
 	$('#answer_button').click(function(){
 		$("#answer_wrapper").removeClass("hidden").addClass("show");
 		$("#answer_button").hide();
@@ -10,6 +13,11 @@ $(document).ready(function(){
 		$('#loading').fadeIn().addClass("show").removeClass("hidden");
 	});
 
+	$('#search-button').click(function(event){
+		event.preventDefault();
+		$('#search-form').submit();
+
+	});
 
 	/*
 

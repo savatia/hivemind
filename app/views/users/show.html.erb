@@ -1,13 +1,38 @@
 <% provide(:title, @user.name) %>
 <div><span class="page-title"> <%= @user.name %></span>
-  <% if @user = current_user %>
-	<span><%= link_to "edit", edit_user_path(current_user), class: "not-important blue-link" %></span>
+  <% if @user == current_user %>
+	<span><%= link_to "edit", edit_user_path(@user), class: "not-important blue-link" %></span>
 <% end %>
 </div>
 
-
+<div class="info-wrapper ovr-hidden">
+<div class="big-user-info float-left not-important">
 <% if @user.avatar.url.nil? %>
 	<img src="<%= image_url "default_avatar.png" %>" class="user-avatar"/>
 <% else %>
 <%= image_tag @user.avatar.url if @user.avatar? %>
 <% end %>
+  <div class="rep">
+	<strong>Reputation:</strong> <%= @user.rep.to_s%>
+  </div>
+  <div> <strong>Best Answers:</strong> <%= Answer.where(user_id: @user.id, best:true).size.to_s %></div>
+  <div class="date"><strong>Member Since:</strong> <%= @user.created_at %></div>
+</div>
+  <div class="other-info">
+	<div class="about">
+	  <% if @user.about.nil? or @user.about.empty? %>
+	  This person does not seem to want to share anything with you.
+	  <% else %>
+	  <%= @user.about %>
+	  <% end %>
+	</div>
+
+	<div class="signature">
+	  <% if @user.signature.nil? or @user.signature.empty? %>
+		  This individual is not creative enough to come up with a signature
+	  <% else %>
+		  <%= @user.signature %>
+	  <% end %>
+	</div>
+  </div>
+</div>

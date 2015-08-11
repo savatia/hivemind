@@ -1,2 +1,10 @@
 <% provide :title, "Close Question" %>
-<h1 class="page-title">New Moderator</h1>
+<div class="page-title">Close question</div>
+<%= form_for @closing do |f| %>
+	<%= render 'layouts/error_messages', object: f.object %>
+You are closing the question "<%= @question.title %>"; Give a reason for the closure:
+	<%= f.text_area :reason, class:"text-area" %>
+	<%= f.hidden_field :question_id, value: @question.id %>
+	<%= f.submit class:"btn"%>
+<% end %>
+

@@ -3,9 +3,9 @@
 	<div>
 	  <div style="overflow: hidden">
 		<%= link_to field.name.camelcase, field_questions_path(field_id: field.name) , class:"no-formatt super-link" %>
-		<span><%= link_to "New question", new_field_question_path(field.name), class:" not-important float-right no-formatt btn" %></span>
+		<span><%= link_to "New question", new_field_question_path(field.name), class:" no-formatt not-important float-right btn-grey" %></span>
 	  </div>
-	<% Question.where(field_id: field.id)[0..5].each do |question| %>
+	<% Question.where(field_id: field.id)[0..4].each do |question| %>
 		<div><%= render(partial:'small_question',locals:{:question => question,:field=> field})%></div>
 	<% end %>
 	</div>

@@ -29,6 +29,10 @@ class FieldsController < ApplicationController
     @questions = Question.where(:field_id => @field.id)
   end
 
+  def new_moderator
+
+  end
+
   private
   def field_params
     params.require(:field).permit(:name)

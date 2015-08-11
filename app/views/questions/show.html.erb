@@ -1,5 +1,7 @@
 <% provide :title, @question.title %>
-<%= link_to "+close...",new_closing_path, class: "float-right not-important" %>
+<% if Moderator.find_by(user:current_user, field_id: Field.find_by(name:params[:field_id]).id) and !Closing.where(question_id: @question.id).any? %>
+<%= link_to "+close...",new_closing_path+"?question_id=#{@question.id.to_s}", class: "float-right btn-grey not-important" %>
+<% end %>
 <div class="question-container">
   <div class="votes-container"><%= render partial:'votes', locals:{question: @question}%></div>
   <div class="question-wrapper">
@@ -16,7 +18,13 @@
 	  <% if current_user == User.find(@question.user_id) %>
 		  <div class="float-right">&nbsp;<%= link_to "delete", @question, method: :delete, data: { confirm: "You sure?" }, class:"formartt-link" %></div>
 	  <% end %>
-	  <div class="small-user float-right">asked by:&nbsp;<%= link_to User.find(@question.user_id).name, user_path(User.find(@question.user_id).name), class:"formartt-link" %></div>
+	  <div class=" float-right">asked by:&nbsp;
+		<% if User.find(@question.user_id).avatar.nil? %>
+			<%= image_tag image_url('default.png'), class: "small-avatar" %>
+			<% else %>
+			<%= image_tag image_url(User.find(@question.user_id).avatar), class: "small-avatar" %>
+			<% end %>
+		<%= link_to User.find(@question.user_id).name, user_path(User.find(@question.user_id).name), class:"formartt-link" %></div>
 	</div>
   </div>
   <br/>

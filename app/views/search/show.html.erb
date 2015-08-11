@@ -1,0 +1,6 @@
+<% provide :title, @search+" | Search Results" %>
+<div class="page-title">All Results for "<%= @search %>":</div>
+<h3 class="page-tile">Users</h3>
+<% @user_results.each do |r| %>
+	<%= link_to r.name, user_path(r.name), class: "no-formatt blue-link"%>
+<% end %>

@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_action :logged_in, except: :show
+  before_action :logged_in, except: [:show, :index]
   def new
     if current_user.admin?
       @topic = Topic.new

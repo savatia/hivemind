@@ -1,8 +1,12 @@
 <div class="side-nav">
   <div class="side-recent-questions">
 	<div class="side-nav-title">Search:</div>
-	<div class="side-nav-content-wrapper">
-	  <input type="text" class="input-text input" placeholder="search.."/>
+	<div class="side-nav-content-wrapper search-wrapper">
+	  <form action="/results" style="display: inline-flex" id="search-form">
+	  <input id="search_input" type="text" class="input-text input" name="search"  placeholder="search everything..."/>
+
+	  <span class="search-span"><%= link_to( image_tag(image_url('search.png'), class: 'search-button'),"#", id:"search_button")  %></span>
+	  </form>
 	</div>
   </div>
   <div class="side-recent-questions">

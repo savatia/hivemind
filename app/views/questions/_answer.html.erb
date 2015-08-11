@@ -1,25 +1,45 @@
-<a href="#" id="answer_button" class="no-formatt answer-btn btn btn-primary">
-  Answer!
-</a>
-<div class="answer-wrapper hidden" id="answer_wrapper">
-  <%= form_for @answer do |f| %>
-	  <%= f.hidden_field :question_id, value: @question.id, id:"question_id" %>
-	  <%= f.text_area :content, class:'form-input answer-box', id:'answer_box' %>
-	  <%= link_to "Submit", "#", id:"answer_submit",  class:"btn" %>
-  <% end %>
-</div>
+<% if !Closing.where(question_id: @question.id).any? %>
+	<a href="#" id="answer_button" class="no-formatt answer-btn btn btn-primary">
+	  Answer!
+	</a>
+	<div class="answer-wrapper hidden" id="answer_wrapper">
+	  <%= form_for @answer do |f| %>
+		  <%= f.hidden_field :question_id, value: @question.id, id:"question_id" %>
+		  <%= f.text_area :content, class:'form-input answer-box', id:'answer_box' %>
+		  <%= link_to "Submit", "#", id:"answer_submit",  class:"btn" %>
+	  <% end %>
+	</div>
+<% else %>
+	<div class="closing-explanation">
+	  <div class="closing-reason">
+		<% mod = User.find Moderator.find(Closing.find_by(question_id: @question.id).moderator_id).user_id %>
+
+		<div class="not-important">The question has been closed by, <%= link_to mod.name, user_path(mod.name) %> due to the following reason:</div>
+		<ul>
+			<li><strong><%= Closing.find_by(question_id: @question.id).reason %></strong></li>
+		</ul>
+
+	  </div>
+	</div>
+<% end %>
 <% if @best=Answer.find_by(question: @question.id, best: true) %>
 	<div class="best-answer-wrapper">
 	  <p class="not-important">Best Answer:</p>
 	  <div class="answer-votes-wrapper float-left"><%= render partial:'answers/votes', locals:{answer: @best} %></div>
-	  <div class="float-left answer-content-wrapper">
+	  <div class=" answer-content-wrapper">
 		<div class="answer-content"> <%= @best.content %></div>
 		<div class="not-important">
 		  <div class="float-left">
 			<%= @best.created_at %>
 		  </div>
 		  <div class="float-right">
-			&nbsp;answered by:&nbsp;<%= link_to(User.find(@best.user_id).name,user_path(User.find(@best.user_id).name), class:"link-formatt" ) %>
+			&nbsp;answered by:&nbsp;
+			<% if User.find(@best.user_id).avatar.nil? %>
+				<%= image_tag image_url('default.png'), class: "small-avatar" %>
+			<% else %>
+				<%= image_tag image_url(User.find(@best.user_id).avatar), class: "small-avatar" %>
+			<% end %>
+			<%= link_to(User.find(@best.user_id).name,user_path(User.find(@best.user_id).name), class:"link-formatt" ) %>
 		  </div>
 		</div>
 	  </div>
@@ -30,16 +50,24 @@
   	<div class="answer">
 	  <div class="answer-votes-wrapper float-left">
 		<%= render partial:'answers/votes', locals:{answer: answer} %>
+		<% if !Closing.where(question_id: @question.id).any? %>
 		<%= link_to("Best Answer!", best_answer_path+"?answer_id="+answer.id.to_s, class:"no-formatt big-btn btn") if(current_user == User.find(@question.user_id) and !Answer.where(question_id: @question.id, best:true).any?)  %>
+	  <% end %>
 	  </div>
-	  <div class="float-left answer-content-wrapper">
+	  <div class="answer-content-wrapper">
 		 <div class="answer-content"> <%= answer.content %></div>
 		  <div class="not-important">
 			<div class="float-left">
 			  <%= answer.created_at %>
 			</div>
 			<div class="float-right">
-			  &nbsp;answered by:&nbsp;<%= link_to(User.find(answer.user_id).name,user_path(User.find(answer.user_id).name), class:"link-formatt" ) %>
+			  &nbsp;answered by:&nbsp;
+			  <% if User.find(answer.user_id).avatar.nil? %>
+				  <%= image_tag image_url('default.png'), class: "small-avatar" %>
+			  <% else %>
+				  <%= image_tag image_url(User.find(answer.user_id).avatar), class: "small-avatar" %>
+			  <% end %>
+			  <%= link_to(User.find(answer.user_id).name,user_path(User.find(answer.user_id).name), class:"link-formatt" ) %>
 			</div>
 		  </div>
 		</div>

@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  resources :forum_admins, only:[:create, :destroy, :index, :new]
+
+  resources :banned_users, only:[:create, :destroy, :index, :new]
+
+  resources :closed_posts, only:[:create, :destroy, :index, :new]
+
+  get 'results' => 'search#show'
+
   root 'static_pages#home'
 
   get 'about' => 'static_pages#about'
@@ -12,7 +20,9 @@ Rails.application.routes.draw do
     get 'questions' => 'users#questions'
   end
 
-  resources :moderators, only:[:create, :destroy, :new]
+  resources :notifications, only:[:index, :destroy]
+
+  resources :moderators, only:[:create, :destroy, :index, :new]
 
   get 'admin_functions' => 'static_pages#admin_functions'
 
@@ -44,6 +54,7 @@ Rails.application.routes.draw do
   resources :fields, path: '' , only:[:show]  do
     resources :questions, only:[:show, :edit, :new]
     get 'questions' => 'fields#questions'
+    get 'new-moderator' => 'fields#new_moderator'
   end
 
 

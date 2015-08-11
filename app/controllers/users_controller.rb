@@ -6,8 +6,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.save()
-    redirect_to root_url
+    if @user.save()
+      redirect_to root_url
+    else
+      render 'new'
+    end
   end
 
   def index
@@ -38,6 +41,6 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :signature)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar, :signature, :about)
     end
 end

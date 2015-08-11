@@ -6,12 +6,18 @@
 //$accent-color-border:  #ffa841;
 
 /* green scheme */
+/*
 $accent-color: #83e897;
 $accent-color-light:#bbe8c8;
 $accent-color-border: #0ea14c;
 $active:  cornflowerblue;
 //$accent2-color: ;
 
+/* dark scheme */
+$accent-color: #2A2A2A;
+$accent-color-light:#DADADA;
+$accent-color-border: #FAFAFA;
+$active:  cornflowerblue;
 
 $page-width: 75%;
 $question-grey: #F1F1F1;
@@ -51,13 +57,12 @@ body{
 
 #bar{
   background-color: $accent-color;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1), 0px 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 /* for all ul in topbar */
 
 #topbar{
-  text-shadow: #CCCCCC;
   margin: 0 auto;
   background-color: $accent-color;
   font-weight: 900;
@@ -71,12 +76,11 @@ body{
     height: auto;
     padding: 10px;
     text-decoration: none;
-    //color: azure;
     color:  #ffffff;
   }
 
 
-  #logo{
+  .logo{
     font-family: Courier;
     float: left;
     text-align: center;
@@ -86,7 +90,7 @@ body{
     height: auto;
     background-image: image_url("logo");
     background-position: center;
-    background-size: contain;
+    background-size: 140px;
     background-repeat: no-repeat;
   }
 
@@ -255,7 +259,6 @@ body{
   text-decoration: none;
   color: initial;
   &:visited{
-    color: initial;
   }
 }
 
@@ -263,7 +266,7 @@ body{
   text-decoration: none;
   color: inherit;
   &:visited{
-    color: inherit;
+
   }
   &:hover{
     text-decoration: underline;
@@ -281,11 +284,32 @@ body{
   }
 }
 
+
+
 .grey-link{
   color: #CCCCCC;
   &:visited{
     color: #CCCCCC;
   }
+
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
+.dark-grey-link{
+  color: #777777;
+  &:visited{
+    color: #777777;
+  }
+
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
+.field-wrapper{
+  margin-bottom:40px ;
 }
 
 .question-link{
@@ -418,6 +442,27 @@ body{
   //box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
 }
 
+.btn-grey-small{
+  border: 1px solid #6f6f6f;
+  padding: 1px 5px;
+  background-color: #f2f2f2;
+  color: #6f6f6f;
+  font-weight: 900;
+  border-radius: 1px ;
+  transition: box-shadow 0.5s;
+  margin: 10px;
+  border-radius: 3px;
+}
+
+.btn-red{
+  font-weight: 600;
+  background-color: #f52c25;
+  color: white;
+  margin: 4px 10px;
+  padding: 1px 10px;
+  border-radius: 2px;
+}
+
 .answer-container{
   height: 40%;
   padding: 40px;
@@ -457,7 +502,8 @@ body{
     padding: 20px 20px;
     font-family: "Swanse - Regular";
     background: #fff0b6;
-
+    border: #c2c2c2 solid 1px;
+    border-radius: 4px;
     .answer-votes-wrapper{
 
       .answer-votes {
@@ -468,7 +514,7 @@ body{
 
     .answer-content-wrapper{
       margin-top: 30px;
-      margin-left: 30px;
+      margin-left: 60px;
     }
     .answer-content{
       padding-bottom: 10px;
@@ -496,7 +542,7 @@ body{
 
       .answer-content-wrapper{
         margin-top: 30px ;
-        margin-left: 20px;
+        margin-left: 60px;
       }
       .answer-content{
         padding-bottom: 10px;
@@ -536,6 +582,58 @@ body{
 
 
 /* misc */
+
+.small-user{
+  margin: 20px;
+  padding: 20px;
+  border-bottom: solid 1px #c2c2c2;
+  vertical-align: middle;
+}
+.small-avatar{
+  height: 40px;
+  width: 40px;
+}
+
+.medium-avatar{
+  height: 100px;
+  width: 100px;
+  vertical-align: middle;
+  margin-right: 20px;
+}
+
+.vertical-middle{
+  vertical-align: middle;
+}
+
+.error-explanation{
+  padding: 20px 40px;
+  background-color: #ffBBBB;
+  border-color: #ff3232;
+  color: #3C3C3C;
+  border-radius: 4px;
+}
+
+.delete-image{
+  height: 80%;
+  width: 80%;
+  opacity: 0.5;
+  &:hover{
+    opacity: 1;
+  }
+}
+
+.circle{
+  height: 13px;
+  width: 13px;
+  line-height: 13px;
+  color: white;
+  border-radius: 50%;
+  background-color: #f42a3a;
+  text-align: center;
+  font-size: 10px;
+  float: left;
+  margin-right:2px ;
+}
 
 .super-link{
   font-family: "Unna - Bold Italic";
@@ -677,11 +775,13 @@ input[type="text"],input[type="password"],input[type="email"], textarea{
 .input-text-area{
   width: 75%;
   display: block;
+  height: 200px;
 }
 
 textarea{
   width: 75%;
   display: block;
+  height: 200px;
 }
 
 form{
@@ -776,19 +876,21 @@ form{
 .search-button{
   height: 20px;
   width: 20px;
+  vertical-align: middle;
 }
 
 .search-span{
   margin-top: 7px;
-  position: absolute;
   padding: 0 10px;
 
 }
 
 .search-wrapper{
   width: 75%;
+  display: initial;
   .input-text{
-    width: 100%;
+    width: 80%;
+    display: initial;
   }
 }
 
@@ -819,8 +921,42 @@ option{
   overflow: hidden;
 }
 
+.big-user-info{
+  margin: 20px 0;
+
+  div {
+    margin-bottom: 20px;
+  }
+
+}
+
+.info-wrapper{
+  padding: 20px 40px;
+  overflow: hidden;
+  border-bottom: #CCCCCC 1px solid;
+}
+
+.other-info{
+  margin:20px 0;
+  padding-left: 20px ;
+}
+
+.about{
+  height: 200px;
+}
 
 /* post stuffs*/
+
+.post-admin{
+  font-weight: 900;
+  color: white;
+  background-color: #126512;
+  padding: 1px 5px;
+  border-radius: 2px;
+  &:after{
+    content: '(forum-admin)';
+  }
+}
 .post-table{
   margin: 0 auto;
   padding: 20px;
@@ -830,8 +966,10 @@ option{
   min-height: 800px;
   margin-top: 5px;
 }
+
 .breadcrumbs{
-  margin-bottom: 20px;
+  margin-bottom: 2px;
+  overflow: hidden;
 }
 
 .post-title{
@@ -879,4 +1017,71 @@ option{
 .user-avatar{
   width: 100%;
   max-width:200px;
+}
+
+/* closing stuff */
+.closing-explanation{
+  border: solid 1px #c2c2c2;
+  background-color: #f5ec95;
+  padding: 10px 30px;
+  border-radius: 3px;
+}
+
+/* notification stuff */
+.notification{
+  overflow: hidden;
+  padding: 20px;
+  margin: 10px 0;
+  width: 75%;
+  border-radius: 3px;
+}
+
+.notification-preview{
+  margin: 20px;
+  padding: 15px 10px;
+  background-color: #e7e7e7;
+}
+.unseen{
+  background-color: #d4dfe7;
+}
+
+.seen{
+  background-color: #FAFAFA;
+}
+
+/* responsive stuff*/
+@media (max-width: 827px) {
+  .scope{
+    width: 100%;
+  }
+  .topbar-list{
+    display: inline-flex;
+    float: none;
+  }
+
+  .logo{
+    float: none;
+  }
+}
+
+@media (max-width: 550px) {
+  .side-nav{
+    display: none;
+  }
+
+  .container{
+    width: 100%;
+    border: none;
+  }
+}
+
+@media (max-width: 550px) {
+  .container{
+    margin: 0;
+    padding: 0;
+  }
+
+  .scope{
+    padding: 0;
+  }
 }

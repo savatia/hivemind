@@ -1,5 +1,30 @@
 <% provide :title, @post.title %>
-<div class="breadcrunbs">
+<% @topic = Topic.find_by(url: params[:topic_id]) %>
+<% if ClosedPost.find_by(post_id: @post.id) %>
+	<div class="closing-explanation">
+	  <div class="closing-reason">
+		<% admin = User.find ForumAdmin.find(ClosedPost.find_by(post_id: @post.id).forum_admin_id).user_id %>
+
+		<div class="not-important">The post has been closed by, <%= link_to admin.name, user_path(admin.name) %> due to the following reason:</div>
+		<ul>
+		  <li><strong><%= ClosedPost.find_by(post_id: @post.id).reason %></strong></li>
+		</ul>
+
+	  </div>
+	</div>
+<% end %>
+<% if BannedUser.find_by(user: current_user, topic: @topic) %>
+	<div class="closing-explanation">
+	  <div class="closing-reason">
+		<strong> You have been banned from replying and posting to Topics about <%= @topic.name %></strong>
+
+	  </div>
+	</div>
+<% end %>
+<div class="breadcrumbs">
+  <% if ForumAdmin.find_by(user:current_user, topic_id: Topic.find_by(url:params[:topic_id]).id) and !ClosedPost.where(post_id:  @post.id).any? %>
+	  <%= link_to "+close...", new_closed_post_path+"?post_id=#{@post.id.to_s}", class: "float-right btn-grey not-important" %>
+  <% end %>
   <% topic = Topic.find(@post.topic) %>
   <% if topic.general? %>
   <span class="breadcrumb"><%= link_to "General->", topics_path, class: "no-formatt blue-link small" %></span>
@@ -20,7 +45,7 @@
 		</div>
 	  </div>
 	</div>
-	<% if !current_user.nil? %>
+	<% if !current_user.nil? and !ClosedPost.find_by(post_id: @post.id) and !BannedUser.find_by(user: current_user, topic: @topic) %>
 		<div class="reply-wrapper">
 		  <%= form_for @reply do |f| %>
 			  <%= f.hidden_field :post_id, value: @post.id %>
@@ -41,9 +66,22 @@
 					<%= image_tag(user.avatar.url, class: "user-avatar") if user.avatar? %>
 				<% end %>
 			  </div>
-			  <div class="user-name" ><strong><%= link_to(user.name, user_path(user.name), class:"no-formatt blue-link") %></strong></div>
+			  <% if !ForumAdmin.find_by(user: user, topic: @topic) %>
+				   <div class="user-name " ><strong><%= link_to(user.name, user_path(user.name), class:"no-formatt blue-link ") %></strong></div>
+			  <% else %>
+				  <div class="user-name " ><strong><%= link_to(user.name, user_path(user.name), class:"no-formatt post-admin") %></strong></div>
+			  <% end %>
 			  <div class="user-info">User rep: <strong><%= user.rep%></strong></div>
 			  <div class="user-info">Member Since: <strong><%= user.created_at.month.to_s + "/"+user.created_at.year.to_s %></strong></div>
+			  <% if !current_user.nil? %>
+				  <% if(!ForumAdmin.find_by(user: user, topic: @topic) and !user.admin? and(ForumAdmin.find_by(user: current_user, topic: @topic) or current_user.admin?))%>
+					  <% if BannedUser.find_by(user: user, topic: @topic) %>
+						  <%= link_to "Unban", banned_users_path+"?user_id="+user.id.to_s+"&topic_id="+@topic.id.to_s,method: :delete, class: "no-formatt btn-grey-small", method: :post %>
+					  <% else %>
+				  		<%= link_to "Ban", banned_users_path+"?user_id="+user.id.to_s+"&topic_id="+@topic.id.to_s, class: "no-formatt btn-red", method: :post %>
+					  <% end %>
+				  <% end %>
+			  <% end %>
 			</div>
 			<div class="reply-content-wrapper ">
 			  <div class="reply-content"><%= reply.content %></div>
@@ -51,7 +89,7 @@
 			</div>
 		  </div>
 		  <div class="signature">
-			<% if user.signature.nil? %>
+			<% if user.signature.nil? or user.signature.empty? %>
 			"Not creative enough to write a signature"
 			<% else %>
 				<%= user.signature %>

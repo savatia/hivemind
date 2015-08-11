@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729184615) do
+ActiveRecord::Schema.define(version: 20150810223927) do
 
   create_table "answer_votes", force: :cascade do |t|
     t.integer  "answer_id"
@@ -39,6 +39,28 @@ ActiveRecord::Schema.define(version: 20150729184615) do
   add_index "answers", ["question_id"], name: "index_answers_on_question_id"
   add_index "answers", ["user_id"], name: "index_answers_on_user_id"
 
+  create_table "banned_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "topic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "banned_users", ["topic_id"], name: "index_banned_users_on_topic_id"
+  add_index "banned_users", ["user_id", "topic_id"], name: "index_banned_users_on_user_id_and_topic_id", unique: true
+  add_index "banned_users", ["user_id"], name: "index_banned_users_on_user_id"
+
+  create_table "closed_posts", force: :cascade do |t|
+    t.integer  "forum_admin_id"
+    t.string   "reason"
+    t.integer  "post_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "closed_posts", ["forum_admin_id"], name: "index_closed_posts_on_forum_admin_id"
+  add_index "closed_posts", ["post_id"], name: "index_closed_posts_on_post_id"
+
   create_table "closings", force: :cascade do |t|
     t.integer  "moderator_id"
     t.integer  "question_id"
@@ -55,6 +77,17 @@ ActiveRecord::Schema.define(version: 20150729184615) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "forum_admins", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "topic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "forum_admins", ["topic_id"], name: "index_forum_admins_on_topic_id"
+  add_index "forum_admins", ["user_id", "topic_id"], name: "index_forum_admins_on_user_id_and_topic_id", unique: true
+  add_index "forum_admins", ["user_id"], name: "index_forum_admins_on_user_id"
 
   create_table "moderators", force: :cascade do |t|
     t.integer  "user_id"

@@ -1,17 +1,28 @@
 <% provide :title, "Add New Moderator" %>
-<div id="field_select" class="display">
-<h1 class="page-title">Choose field:</h1>
-<ul class="link-list">
-<% Field.all.each do |field| %>
-  <li class="link-listitem"><%= link_to field.name, "#", class: "no-formatt link-listitem field-link" %></li>
+<div class="page-title">Add new moderator:</div>
+
+  <%= form_for @moderator do |f| %>
+	<%= render 'layouts/error_messages',  object: f.object %>
+	<%= f.label :field, class:"form-label not-important" %>
+	<select name="moderator[field]" class="form-input">
+
+	  <% if current_user.admin? %>
+		  <% Field.all.each  do |field| %>
+			  <option value="<%= field.name %>" class="form-input">
+				<%= field.name %>
+			  </option>
+		  <% end %>
+	  <% else %>
+		  <% Moderator.where(user_id: current_user.id).each do |mod| %>
+			  <option value="<%= Field.find(mod.field_id).name %>" class="form-input">
+				<%= Field.find(mod.field_id).name %>
+			  </option>
+		  <% end %>
+	  <% end %>
+
+
+	</select>
+	<%= f.label :user, class:"form-label not-important" %>
+	<%= f.text_field :user, class:"form-input", placeholder:"enter user name" %>
+	<%= f.submit  class:"btn"%>
 <% end %>
-</ul>
-</div>
-<div id="user_search" class="hidden">
-  <h1 class="page-title" id="page_title"></h1>
-<h1 class="not-important">Search for user to add:</h1>
-<div class="search-wrapper"> <input type="text"  placeholder="search for users..." id="search" class="input input-text"/><span class="search-span"><a href="#"><img src="<%= image_url 'search.png' %>" class="search-button"/></a> </span></div>
-<canvas class="hidden" id="results"></canvas>
-<%= form_for @moderator do |f| %>
-<% end %>
-</div>

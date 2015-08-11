@@ -14,17 +14,25 @@
 	<li class="topbar-listitem">
 	  <%= link_to "Questions", questions_path, class: "topbar-link no-formatt" %>
 	</li>
+	<li class="topbar-listitem">
+	  <%= link_to "Users", users_path, class: "topbar-link no-formatt" %>
+	</li>
 	<% if !current_user.nil? %>
 		<li class="topbar-listitem account" >
-		  <% @account  =String.new
-			 @account = current_user.notifications_count.to_s if current_user.notifications_count!=0
+		  <% @account  = String.new
 			 @account += current_user.name
 			  if current_user.admin?
 				@account += "(admin)"
 			  end
+
 		  %>
-		  <%= link_to @account, "#", class: "topbar-link no-formatt" %>
-			<ul class="account-list" id="account-list">
+		  <a href="#" class="topbar-link no-formatt">
+			<% if current_user.notifications_count != 0 %>
+			<div class="circle"><%= current_user.notifications_count.to_s %></div>
+			<% end %>
+			<%= @account %>
+		  </a>
+		  <ul class="account-list" id="account-list">
 			  <li class="account-listitem">
 				<%= link_to "Profile", user_path(id:current_user.name), class:"account-link no-formatt"  %>
 			  </li>
@@ -36,6 +44,20 @@
 				<%= link_to "Admin Functions", admin_functions_path, class:"no-formatt account-link"  %>
 			  </li>
 			  <% end %>
+			<% if Moderator.where(user_id: current_user.id).any? %>
+				<li class="account-listitem">
+				  <%= link_to "Add Moderator", new_moderator_path, class:"no-formatt account-link"  %>
+				</li>
+			<% end %>
+
+			<% if ForumAdmin.where(user_id: current_user.id).any? %>
+				<li class="account-listitem">
+				  <%= link_to "Add Forum Admin", new_forum_admin_path, class:"no-formatt account-link"  %>
+				</li>
+			<% end %>
+			  <li class="account-listitem">
+				<%= link_to "Notifications", notifications_path, class:"no-formatt account-link" %>
+			  </li>
 			  <li class="account-listitem">
 				<%= link_to "Logout", logout_path, class:"no-formatt account-link" , method: :delete %>
 			  </li>
