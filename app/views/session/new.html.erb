@@ -5,9 +5,12 @@
 	<%= f.text_field :username, class:'text_area form-input' %>
 	<%= f.label :password, class:'form-label' %>
 	<%= f.password_field :password, class:'password-field form-input' %>
-	<%= f.label :remember_me, class: "checkbox remember-checkbox" do %>
+	<div style="left:40%;" class=" small-vert-margin not-important"> <%= link_to "Forgot password?", new_password_reset_path, class:"no-formatt blue-link"%></div>
+	<%= f.label :remember_me, class: "checkbox remember-checkbox" , style:"display: inline-flex;" do %>
 		<%= f.check_box :remember_me %>
 		<span>Remember me on this computer</span>
+
 	<% end %>
 	<%= f.submit "Login", class:"btn primary-btn" %>
 <% end %>
+<div class="small-vert-margin not-important">New User? <%= link_to "Sign Up!", new_user_path, class:"no-formatt blue-link"%></div>

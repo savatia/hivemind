@@ -5,11 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-User.create!(name:'brian', email:'foobar@foo.com', password:'foobar', admin:'true')
-User.create!(name:'foobar', email:'foo@bar.com', password:'foobar', admin:'false')
-User.create!(name:'john', email:'john@foo.com', password:'foobar', admin:'false')
-User.create!(name:'james', email:'james@foo.com', password:'foobar', admin:'false')
-User.create!(name:'mary', email:'mary@foo.com', password:'foobar', admin:'false')
+User.create!(name:'brian', email:'foobar@foo.com', password:'foobar', admin:'true',activated: true, activated_at: Time.zone.now)
+User.create!(name:'foobar', email:'foo@bar.com', password:'foobar', admin:'false',activated: true, activated_at: Time.zone.now)
+User.create!(name:'john', email:'john@foo.com', password:'foobar', admin:'false',activated: true, activated_at: Time.zone.now)
+User.create!(name:'james', email:'james@foo.com', password:'foobar', admin:'false',activated: true, activated_at: Time.zone.now)
+User.create!(name:'mary', email:'mary@foo.com', password:'foobar', admin:'false',activated: true, activated_at: Time.zone.now)
 
 Field.create!(name:"Java")
 Field.create!(name:"C-sharp")

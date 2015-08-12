@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'password_resets/new'
+
+  get 'password_resets/edit'
+
   resources :forum_admins, only:[:create, :destroy, :index, :new]
 
   resources :banned_users, only:[:create, :destroy, :index, :new]
@@ -20,6 +24,8 @@ Rails.application.routes.draw do
     get 'questions' => 'users#questions'
   end
 
+  resources :account_activations, only: [:edit]
+
   resources :notifications, only:[:index, :destroy]
 
   resources :moderators, only:[:create, :destroy, :index, :new]
@@ -33,6 +39,7 @@ Rails.application.routes.draw do
   resources :posts, only:[:destroy, :create]
 
   resources :fields, only:[ :create, :new, :destroy ,:index]
+  resources :password_resets,     only: [:new, :create, :edit, :update]
 
   #resources :questions_votes, only:[:create, :destroy, :edit, :vote]
   get 'question_vote' => 'questions_votes#vote'

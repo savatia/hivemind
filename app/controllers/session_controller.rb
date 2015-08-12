@@ -9,9 +9,16 @@ class SessionController < ApplicationController
     @user = User.find_by(name: params[:session][:username])
     if !@user.nil? && current_user.nil?
       if @user.authenticate(params[:session][:password])
-        log_in(@user)
-        flash[:message] = "Successfully logged in! "
-        redirect_to user_path(id: @user.name)
+        if @user.activated?
+          log_in @user
+          #params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
+          redirect_back_or user
+        else
+          message  = "Account not activated. "
+          message += "Check your email for the activation link."
+          flash[:danger] = message
+          redirect_to root_url
+        end
       else
           flash[:danger] = "Incorrect username/password combination"
           redirect_to login_path
