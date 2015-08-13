@@ -16,7 +16,22 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+
+    if params[:q] == "account_age_desc"
+      @users = User.all.order(:created_at).reverse_order
+    elsif params[:q] == "account_age_asc"
+      @users = User.all.order(:created_at)
+    elsif params[:q] == "rep_asc"
+      @users = User.all.order(:rep).reverse_order
+    elsif params[:q] == "rep_asc"
+      @users = User.all.order(:rep)
+    elsif params[:q] == "name_desc"
+      @users = User.all.order(:name).reverse_order
+    elsif params[:q] == "name_asc"
+      @users = User.all.order(:name)
+    else
+      @users = User.all
+    end
   end
 
   def show

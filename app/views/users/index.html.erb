@@ -1,5 +1,19 @@
 <% provide(:title, 'All Users') %>
 <div class="page-title">All Users:</div>
+<div class="not-important"> Order By:</div>
+<ul class="link-list" style="display: inline-flex; list-style: none;">
+  <li>Account age:&nbsp;</li>
+  <li><%= link_to " Desc-", users_path+"?q=account_age_desc",class: "no-formatt grey-link"  %></li>
+  <li><%= link_to " Asc",users_path+"?q=account_age_asc",class: "no-formatt grey-link"  %></li>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <li>&nbsp;Reputation:&nbsp;</li>
+  <li><%= link_to " Desc-",users_path+"?q=rep_desc",class: "no-formatt grey-link"  %></li>
+  <li><%= link_to " Asc",users_path+"?q=rep_asc",class: "no-formatt grey-link"  %></li>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <li>&nbsp;Name:&nbsp;</li>
+  <li><%= link_to " Desc-",users_path+"?q=name_desc",class: "no-formatt grey-link"  %></li>
+  <li><%= link_to " Asc",users_path+"?q=name_asc",class: "no-formatt grey-link"  %></li>
+</ul>
 <ul class="link-list">
 <% @users.each do |user| %>
 	<li class="link-listitem">
@@ -8,7 +22,7 @@
 	  <% else %>
 	  <%= image_tag image_url(user.avatar), class: "medium-avatar"%>
 	  <% end %>
-	  <%= link_to user.name, user_path(user.name), class: "no-formatt blue-link" %>
+	  <%= link_to user.name, user_path(user.name), class: "no-formatt blue-link" %>&nbsp;<strong><%= user.rep %></strong>
 	</li>
 <% end %>
 </ul>

@@ -1,6 +1,30 @@
 <% provide :title, @search+" | Search Results" %>
 <div class="page-title">All Results for "<%= @search %>":</div>
+
+<div class="results">
 <h3 class="page-tile">Users</h3>
 <% @user_results.each do |r| %>
-	<%= link_to r.name, user_path(r.name), class: "no-formatt blue-link"%>
+	<%= link_to r.name, user_path(r.name), class: "result no-formatt blue-link"%>
 <% end %>
+</div>
+
+<div class="results">
+<h3 class="page-tile">Questions:</h3>
+<% @question_results.each do |r| %>
+	<%= link_to r.title, field_question_path(id: r.url, field_id: Field.find(r.field_id).name), class: "result no-formatt blue-link"%>
+<% end %>
+</div>
+
+<div class="results">
+<h3 class="page-tile">Fields:</h3>
+<% @field_results.each do |r| %>
+	<%= link_to r.name, field_questions(field_id: Field.find(r.name)), class: "result no-formatt blue-link"%>
+<% end %>
+</div>
+
+<div class="results">
+<h3 class="page-tile">Topic:</h3>
+<% @topic_results.each do |r| %>
+	<%= link_to r.name, topic_path(id: r.url), class: "result no-formatt blue-link"%>
+<% end %>
+</div>

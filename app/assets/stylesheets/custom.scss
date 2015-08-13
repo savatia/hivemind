@@ -583,8 +583,179 @@ body{
 
 /* misc */
 
+.results{
+  padding-bottom: 40px;
+}
+
+.result{
+  margin:20px 40px;
+  border-bottom: solid 1px #CCCCCC;
+}
+.no-border{
+  border: 0px;
+}
+
+.no-backgroud{
+  background-color: transparent;
+}
 .small-vert-margin{
   margin: 20px 0;
+}
+
+.landing-bar{
+  position: absolute;
+  top: 0;
+  z-index: 9999;
+}
+
+.welcome-message-wrapper {
+  top: 200px;
+  left: 0;
+  position: absolute;
+  margin: 0 auto;
+  color: white;
+  width: 100%;
+  height: 40%;
+  padding: 0 25%;
+}
+
+.main-welcome-message{
+  font-size: 28px;
+  margin: 0 auto;
+  vertical-align: middle;
+}
+
+#landing-topbar{
+  margin: 0 auto;
+  padding: 20px 100px;
+  width: 100% !important;
+  font-weight: 900;
+  z-index: 9998;
+  width: $page-width ;
+  overflow: hidden;
+  font-size: 12px;
+  background: rgba(0,0,0,0.5);
+  height: 50%;
+
+  a{
+    display: block;
+    height: auto;
+    padding: 10px;
+    text-decoration: none;
+    color:  #ffffff;
+  }
+
+
+  .logo{
+    font-family: Courier;
+    float: left;
+    text-align: center;
+    font-weight: 900;
+    font-size: 40px;
+    color: rgba(0,0,0,0);
+    height: auto;
+    background-image: image_url("logo");
+    background-position: center;
+    background-size: 140px;
+    background-repeat: no-repeat;
+  }
+
+
+  .topbar-list{
+    list-style: none;
+    float: right;
+    border-bottom-color: #2E2F30 ;
+
+    .topbar-listitem{
+      float: left;
+      padding: 10px;
+      width: auto;
+
+      &:hover{
+        border-bottom: 4px white solid;
+      }
+
+      &:hover .account-list{
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .account-list {
+        overflow: hidden;
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        background-color: white;
+        font-weight: 500;
+        z-index: 9999;
+        transition: opacity 0.5s;
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
+        width: auto;
+        min-width: 10%;
+        list-style: none;
+        .account-listitem{
+          transition: background-color 0.1s, color 0.1s;
+          &:hover {
+            background-color: #666666;
+            a {
+              color: white;
+            }
+          }
+
+          form{
+            input{
+              width: 95%;
+            }
+          }
+        }
+
+        #topbar-login{
+          &:hover{
+            background-color: white;
+          }
+        }
+
+        a{
+          color: #2E2F30;
+          width: auto;
+        }
+
+      }
+    }
+  }
+
+}
+
+.style-btn{
+  border: 3px solid white;
+  border-radius: 3px;
+  margin: 10px;
+  padding: 5px 10px;
+}
+
+.landing-additional-info{
+  height: 40%;
+  margin: 0 auto;
+  width: 60%;
+  background-color: white;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  color: #717171;
+  overflow: hidden;
+  padding: 20px 100px;
+  li{
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: solid 1px #CCCCCC;
+  }
+}
+
+.landing-image-wrapper{
+  background-image: image_url('landing-background.jpg') ;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 50%;
+  width: 100%;
 }
 .small-user{
   margin: 20px;

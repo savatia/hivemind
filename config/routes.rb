@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'field_subscriptions/create'
+
+  get 'field_subscriptions/destroy'
+
   get 'password_resets/new'
 
   get 'password_resets/edit'
@@ -19,6 +23,8 @@ Rails.application.routes.draw do
   get 'help' => 'static_pages#help'
 
   get 'forums' => 'topics#index'
+
+  get 'landing' => 'static_pages#landing'
 
   resources :users do
     get 'questions' => 'users#questions'

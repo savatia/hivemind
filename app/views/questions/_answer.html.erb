@@ -34,8 +34,8 @@
 		  </div>
 		  <div class="float-right">
 			&nbsp;answered by:&nbsp;
-			<% if User.find(@best.user_id).avatar.nil? %>
-				<%= image_tag image_url('default.png'), class: "small-avatar" %>
+			<% if User.find(@best.user_id).avatar.url.nil? %>
+				<%= image_tag image_url('default_avatar.png'), class: "small-avatar" %>
 			<% else %>
 				<%= image_tag image_url(User.find(@best.user_id).avatar), class: "small-avatar" %>
 			<% end %>
@@ -62,8 +62,8 @@
 			</div>
 			<div class="float-right">
 			  &nbsp;answered by:&nbsp;
-			  <% if User.find(answer.user_id).avatar.nil? %>
-				  <%= image_tag image_url('default.png'), class: "small-avatar" %>
+			  <% if User.find(answer.user_id).avatar.url.nil? %>
+				  <%= image_tag image_url('default_avatar.png'), class: "small-avatar" %>
 			  <% else %>
 				  <%= image_tag image_url(User.find(answer.user_id).avatar), class: "small-avatar" %>
 			  <% end %>

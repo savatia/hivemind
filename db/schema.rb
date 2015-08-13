@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150812215525) do
+ActiveRecord::Schema.define(version: 20150812225605) do
 
   create_table "answer_votes", force: :cascade do |t|
     t.integer  "answer_id"
@@ -71,6 +71,17 @@ ActiveRecord::Schema.define(version: 20150812215525) do
 
   add_index "closings", ["moderator_id"], name: "index_closings_on_moderator_id"
   add_index "closings", ["question_id"], name: "index_closings_on_question_id"
+
+  create_table "field_subscriptions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "field_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "field_subscriptions", ["field_id"], name: "index_field_subscriptions_on_field_id"
+  add_index "field_subscriptions", ["user_id", "field_id"], name: "index_field_subscriptions_on_user_id_and_field_id", unique: true
+  add_index "field_subscriptions", ["user_id"], name: "index_field_subscriptions_on_user_id"
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"

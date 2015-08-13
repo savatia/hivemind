@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>Welcome to Hivemind</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="landing-image-wrapper"></div>
+
+  <div id="landing-topbar" class="landing-bar no-border no-background ">
+	<%= link_to "HiveMind", root_url, class: "logo no-formatt", id: "logo" %>
+	<ul class="topbar-list">
+	  <li class="topbar-listitem">
+		<%= link_to "About", about_path, class: "topbar-link no-formatt" %>
+	  </li>
+	  <li class="topbar-listitem">
+		<%= link_to "Help", help_path, class: "topbar-link no-formatt" %>
+	  </li>
+	  <li class="topbar-listitem">
+		<%= link_to "Forums", forums_path, class: "topbar-link no-formatt" %>
+	  </li>
+	  <li class="topbar-listitem">
+		<%= link_to "Questions", questions_path, class: "topbar-link no-formatt" %>
+	  </li>
+	  <li class="topbar-listitem">
+		<%= link_to "Users", users_path, class: "topbar-link no-formatt" %>
+	  </li>
+
+	  <li id="topbar-login"class="topbar-listitem">
+		<%= link_to "Login", login_path, class: "topbar-link no-formatt" %>
+	  </li>
+
+	</ul>
+	<div class="page-title welcome-message-wrapper">
+	  <div class="main-welcome-message">
+		<h1 class="welcome-message">
+		  Welcome to HiveMind!
+		</h1>
+
+		<div class="landing-link-wrapper ovr-hidden"><span class="float-left"><%= link_to "Sign in!",login_path, class: "style-btn" %></span><span class="float-right"><%= link_to "Sign up!", signup_path, class: "style-btn" %></span></div>
+	  </div>
+	</div>
+
+  </div>
+<div class="landing-additional-info">
+  <ul>
+  <li>Welcome to the best IT Web discussion forum in Kenya. Feel free to view pose and ask questions!</li>
+	<li>Feel free to view pose and ask questions!</li>
+	<li>There are several ongoing discussion forums, feel free to ineract!</li>
+  </ul>
+</div>
+
+</body>
+
+</html>
